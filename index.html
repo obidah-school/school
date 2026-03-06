@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ملف الأداء الوظيفي — مدرسة عبيدة بن الحارث المتوسطة</title>
+<style>
+.ministry-bar{background:#fff;border-bottom:2px solid #e0e0e0;padding:6px 20px;display:flex;align-items:center;justify-content:center;gap:18px;direction:rtl}
+.ministry-bar img{height:44px}
+.ministry-titles{text-align:center;line-height:1.6}
+.ministry-titles .mt1{font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;color:#006C35}
+.ministry-titles .mt2{font-family:'Cairo',sans-serif;font-size:12px;color:#444}
+.ministry-titles .mt3{font-family:'Cairo',sans-serif;font-size:11px;color:#777}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-dark:#00471b;--green-main:#006C35;--green-light:#1a9850;
+  --green-soft:#e8f5e9;--green-pale:#f0faf2;
+  --blue-main:#1565c0;--blue-light:#1976d2;--blue-soft:#e3f2fd;--blue-pale:#f0f7ff;
+  --gold:#c9a84c;--gold-light:#f5e6c0;
+  --text-dark:#1a2e1a;--text-mid:#3a4a5a;--text-light:#6a7a8a;
+  --border:#c8dcc8;--white:#fff;
+  --shadow:0 4px 20px rgba(0,108,53,.12);--shadow-h:0 8px 32px rgba(0,108,53,.2);
+  --r:16px;--rs:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Cairo','Tajawal',sans-serif;background:linear-gradient(135deg,#f0faf2,#e8f5e9 50%,#f5ffe8);min-height:100vh;color:var(--text-dark)}
+
+/* ─── HEADER ─── */
+.hdr{background:linear-gradient(135deg,var(--green-dark),var(--green-main) 60%,var(--green-light));position:sticky;top:0;z-index:100;box-shadow:0 4px 24px rgba(0,71,27,.4)}
+.hdr-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;max-width:1400px;margin:0 auto;gap:12px}
+.hdr-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.hdr-emblem{width:50px;height:50px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.hdr-txt h1{color:#fff;font-size:16px;font-weight:700;line-height:1.3}
+.hdr-txt p{color:rgba(255,255,255,.75);font-size:11px}
+.hdr-nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nbtn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:22px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;transition:.2s;display:flex;align-items:center;gap:5px}
+.nbtn:hover{background:rgba(255,255,255,.28)}
+.nbtn.gold{background:var(--gold);border-color:var(--gold);color:var(--green-dark)}
+.nbtn.gold:hover{background:#d4b060}
+.uavatar{width:32px;height:32px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--green-dark)}
+
+/* ─── PAGES ─── */
+.page{display:none;animation:fadeIn .3s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── LOGIN ─── */
+.login-wrap{min-height:calc(100vh - 70px);display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.login-card{width:100%;max-width:500px;background:#fff;border-radius:24px;box-shadow:0 20px 60px rgba(0,108,53,.15);overflow:hidden}
+.login-hero{background:linear-gradient(135deg,var(--green-dark),var(--green-main));padding:32px;text-align:center}
+.school-badge{background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.3);border-radius:16px;display:inline-block;padding:14px 22px;margin-bottom:14px}
+.school-badge .icon{font-size:40px;display:block;margin-bottom:6px}
+.school-badge .name{color:#fff;font-size:17px;font-weight:700;line-height:1.4}
+.school-badge .sub{color:rgba(255,255,255,.75);font-size:12px;margin-top:3px}
+.login-tabs{display:flex;border-bottom:2px solid var(--green-soft)}
+.ltab{flex:1;padding:13px;background:none;border:none;font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-light);border-bottom:3px solid transparent;margin-bottom:-2px;transition:.2s}
+.ltab.active{color:var(--green-main);border-bottom-color:var(--green-main)}
+.login-body{padding:24px 28px}
+.fg{margin-bottom:15px}
+.flbl{display:block;font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:6px}
+.finp{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:var(--rs);font-family:'Cairo',sans-serif;font-size:13px;color:var(--text-dark);background:var(--green-pale);direction:rtl;transition:.2s}
+.finp:focus{outline:none;border-color:var(--green-main);background:#fff}
+.fsel{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:var(--rs);font-family:'Cairo',sans-serif;font-size:13px;color:var(--text-dark);background:var(--green-pale);direction:rtl;cursor:pointer}
+.fsel:focus{outline:none;border-color:var(--green-main)}
+.ferr{color:#c62828;font-size:11.5px;margin-top:4px;display:none}
+.btn-main{width:100%;padding:12px;background:linear-gradient(135deg,var(--green-main),var(--green-light));color:#fff;border:none;border-radius:var(--rs);font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:.25s;box-shadow:0 4px 16px rgba(0,108,53,.3)}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,108,53,.4)}
+.demo-hint{text-align:center;font-size:11px;color:var(--text-light);margin-top:12px;padding:10px;background:var(--green-pale);border-radius:8px;line-height:1.7}
+
+/* multi-select checkboxes */
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px}
+.chk-opt{display:flex;align-items:center;gap:7px;padding:7px 10px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:12.5px;font-weight:500;color:var(--text-dark);background:var(--green-pale);transition:.15s;user-select:none}
+.chk-opt:hover{border-color:var(--green-light);background:var(--green-soft)}
+.chk-opt input[type=checkbox]{width:15px;height:15px;accent-color:var(--green-main);cursor:pointer;flex-shrink:0}
+.chk-opt input[type=checkbox]:checked+*{color:var(--green-dark);font-weight:700}
+.chk-opt:has(input:checked){border-color:var(--green-main);background:var(--green-soft)}
+
+/* role-selector */
+.role-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:15px}
+.role-opt{border:2px solid var(--border);border-radius:var(--rs);padding:12px 10px;cursor:pointer;text-align:center;transition:.2s;background:var(--green-pale)}
+.role-opt:hover{border-color:var(--green-light);background:var(--green-soft)}
+.role-opt.selected{border-color:var(--green-main);background:var(--green-soft)}
+.role-opt .ri{font-size:26px;display:block;margin-bottom:5px}
+.role-opt .rl{font-size:12px;font-weight:600;color:var(--text-dark)}
+
+/* ─── HOME SELECTOR ─── */
+.home-wrap{min-height:calc(100vh - 70px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;gap:28px}
+.home-greeting{text-align:center}
+.home-greeting h2{font-size:22px;font-weight:700;color:var(--green-dark)}
+.home-greeting p{color:var(--text-light);font-size:14px;margin-top:6px}
+.home-cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:640px;width:100%}
+.home-card{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:32px 24px;text-align:center;cursor:pointer;transition:.25s;border:2px solid transparent;position:relative;overflow:hidden}
+.home-card::before{content:'';position:absolute;inset:0;opacity:0;transition:.3s}
+.home-card.teacher-card::before{background:linear-gradient(135deg,rgba(21,101,192,.04),rgba(25,118,210,.08))}
+.home-card.director-card::before{background:linear-gradient(135deg,rgba(0,71,27,.04),rgba(0,108,53,.08))}
+.home-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-h)}
+.home-card:hover::before{opacity:1}
+.home-card.teacher-card:hover{border-color:var(--blue-light)}
+.home-card.director-card:hover{border-color:var(--green-main)}
+.hc-icon{font-size:52px;margin-bottom:14px}
+.hc-title{font-size:17px;font-weight:700;margin-bottom:8px}
+.teacher-card .hc-title{color:var(--blue-main)}
+.director-card .hc-title{color:var(--green-dark)}
+.hc-desc{font-size:12px;color:var(--text-light);line-height:1.7}
+.hc-count{display:inline-block;margin-top:12px;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:700}
+.teacher-card .hc-count{background:var(--blue-soft);color:var(--blue-main)}
+.director-card .hc-count{background:var(--green-soft);color:var(--green-dark)}
+
+/* ─── DASHBOARD ─── */
+.dash{padding:20px;max-width:1400px;margin:0 auto}
+.dash-hero{border-radius:var(--r);padding:24px 28px;color:#fff;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.dash-hero.teacher-hero{background:linear-gradient(135deg,#0d3b8e,var(--blue-main) 60%,var(--blue-light))}
+.dash-hero.director-hero{background:linear-gradient(135deg,var(--green-dark),var(--green-main) 60%,var(--green-light))}
+.dash-hero h2{font-size:20px;font-weight:700;margin-bottom:4px}
+.dash-hero p{opacity:.85;font-size:13px}
+.pcirc{width:85px;height:85px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid rgba(255,255,255,.4);background:rgba(255,255,255,.15);flex-shrink:0}
+.pcirc .pct{font-size:20px;font-weight:700}
+.pcirc .plbl{font-size:10px;opacity:.8}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
+.scard{background:#fff;border-radius:var(--rs);padding:16px 18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;transition:.2s}
+.scard:hover{transform:translateY(-3px)}
+.scard.t-accent{border-right:4px solid var(--blue-main)}
+.scard.d-accent{border-right:4px solid var(--green-main)}
+.scard .sicon{font-size:28px}
+.scard .sval{font-size:22px;font-weight:700}
+.scard.t-accent .sval{color:var(--blue-main)}
+.scard.d-accent .sval{color:var(--green-main)}
+.scard .slbl{font-size:11px;color:var(--text-light)}
+.sec-ttl{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:17px;font-weight:700;color:var(--green-dark)}
+.sec-ttl::before{content:'';width:5px;height:26px;border-radius:3px;background:linear-gradient(180deg,var(--green-main),var(--green-light))}
+.sec-ttl.blue-ttl::before{background:linear-gradient(180deg,var(--blue-main),var(--blue-light))}
+.sec-ttl.blue-ttl{color:var(--blue-main)}
+.filter-bar{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.fbtn{padding:6px 15px;border:2px solid var(--border);border-radius:18px;background:#fff;font-family:'Cairo',sans-serif;font-size:12px;cursor:pointer;transition:.2s;color:var(--text-mid)}
+.fbtn.active,.fbtn:hover{border-color:var(--green-main);color:var(--green-main);background:var(--green-soft)}
+.fbtn.blue.active,.fbtn.blue:hover{border-color:var(--blue-main);color:var(--blue-main);background:var(--blue-soft)}
+.crit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+
+/* ─── CRITERION CARD ─── */
+.ccard{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:.25s;border:2px solid transparent}
+.ccard:hover{box-shadow:var(--shadow-h);transform:translateY(-3px)}
+.ccard.done-t{border-color:var(--blue-light)}
+.ccard.done-d{border-color:var(--green-light)}
+.ccard-hdr{padding:13px 16px;display:flex;align-items:flex-start;gap:10px;border-bottom:1px solid #f0f0f0}
+.ccard-hdr.teacher-hdr{background:linear-gradient(135deg,var(--blue-soft),#fff)}
+.ccard-hdr.director-hdr{background:linear-gradient(135deg,var(--green-soft),#fff)}
+.cnum{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;flex-shrink:0}
+.cnum.t-num{background:var(--blue-main)}
+.cnum.d-num{background:var(--green-main)}
+.ctitle{font-size:13px;font-weight:700;color:var(--text-dark);line-height:1.5;flex:1}
+.cwt{padding:3px 8px;border-radius:11px;font-size:11px;font-weight:700;white-space:nowrap;background:var(--gold-light);color:var(--green-dark)}
+.ccard-body{padding:12px 16px}
+.stars{display:flex;gap:2px}
+.star{font-size:15px;color:#ddd}
+.star.on{color:var(--gold)}
+.cbadge{padding:3px 9px;border-radius:11px;font-size:11px;font-weight:600}
+.cbadge.done{background:var(--green-soft);color:var(--green-main)}
+.cbadge.done-blue{background:var(--blue-soft);color:var(--blue-main)}
+.cbadge.pend{background:#fff3e0;color:#e65100}
+.c-imgs{display:flex;gap:4px;margin-top:7px}
+.cthumb{width:32px;height:32px;border-radius:5px;object-fit:cover;border:2px solid var(--border)}
+.imgbadge{background:var(--green-soft);color:var(--green-main);padding:2px 7px;border-radius:9px;font-size:11px;font-weight:600}
+
+/* ─── MODAL ─── */
+.moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto}
+.moverlay.open{display:flex;animation:fadeIn .2s ease}
+.modal{background:#fff;border-radius:20px;width:100%;max-width:720px;box-shadow:0 24px 80px rgba(0,0,0,.22);margin:auto;animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.mhdr{padding:18px 22px;border-radius:20px 20px 0 0;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mhdr.t-hdr{background:linear-gradient(135deg,#0d3b8e,var(--blue-main))}
+.mhdr.d-hdr{background:linear-gradient(135deg,var(--green-dark),var(--green-main))}
+.mhdr h3{color:#fff;font-size:15px;font-weight:700;line-height:1.4;flex:1}
+.mclose{width:32px;height:32px;background:rgba(255,255,255,.2);border:none;border-radius:50%;color:#fff;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.mclose:hover{background:rgba(255,255,255,.35)}
+.mbody{padding:22px}
+.ev-box{background:var(--green-pale);border-radius:var(--rs);padding:14px 18px;margin-bottom:18px;border-right:3px solid var(--green-light)}
+.ev-box.t-ev{background:var(--blue-pale);border-right-color:var(--blue-light)}
+.ev-box h4{font-size:12.5px;font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.ev-box h4.t-h{color:var(--blue-main)}
+.ev-box h4.d-h{color:var(--green-dark)}
+.ev-box ul{list-style:none}
+.ev-box li{padding:4px 0;font-size:12px;color:var(--text-mid);display:flex;align-items:flex-start;gap:6px;line-height:1.55;border-bottom:1px dashed rgba(0,0,0,.06)}
+.ev-box li:last-child{border:none}
+.ev-box li::before{content:'✦';font-size:9px;margin-top:4px;flex-shrink:0}
+.ev-box.t-ev li::before{color:var(--blue-light)}
+.ev-box li::before{color:var(--green-light)}
+.rate-sec{margin-bottom:20px}
+.rate-sec h4{font-size:12.5px;font-weight:700;color:var(--text-dark);margin-bottom:10px}
+.rate-btns{display:flex;gap:8px}
+.rbtn{flex:1;min-width:46px;padding:10px 4px;border:2px solid var(--border);border-radius:var(--rs);background:#fff;cursor:pointer;text-align:center;transition:.2s;font-family:'Cairo',sans-serif}
+.rbtn:hover{background:var(--green-soft);border-color:var(--green-light)}
+.rbtn.active{border-color:var(--green-main);background:var(--green-soft)}
+.rbtn.t-active{border-color:var(--blue-main);background:var(--blue-soft)}
+.rbtn .rn{font-size:19px;font-weight:700;color:var(--green-main);display:block}
+.rbtn.t-active .rn,.rbtn.t-rbtn .rn{color:var(--blue-main)}
+.rbtn .rl{font-size:9.5px;color:var(--text-light);display:block;margin-top:1px}
+.up-sec{margin-bottom:20px}
+.up-sec h4{font-size:12.5px;font-weight:700;color:var(--text-dark);margin-bottom:10px}
+.imgs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.islot{aspect-ratio:1;border:2px dashed var(--border);border-radius:var(--rs);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s;position:relative;overflow:hidden;background:var(--green-pale)}
+.islot:hover{border-color:var(--green-main);background:var(--green-soft)}
+.islot.t-slot{background:var(--blue-pale)}
+.islot.t-slot:hover{border-color:var(--blue-main);background:var(--blue-soft)}
+.islot.has-img{border-style:solid;border-color:var(--green-light)}
+.islot.t-slot.has-img{border-color:var(--blue-light)}
+.islot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.islot .si{font-size:20px;color:var(--text-light)}
+.islot .sn{font-size:9.5px;color:var(--text-light);margin-top:3px}
+.irem{position:absolute;top:3px;left:3px;width:19px;height:19px;background:rgba(211,47,47,.85);border-radius:50%;display:none;align-items:center;justify-content:center;color:#fff;font-size:11px;cursor:pointer;z-index:5}
+.islot:hover .irem{display:flex}
+.up-hint{font-size:11px;color:var(--text-light);margin-top:7px;text-align:center}
+.note-sec{margin-bottom:20px}
+.note-sec h4{font-size:12.5px;font-weight:700;color:var(--text-dark);margin-bottom:8px}
+.ntarea{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:var(--rs);font-family:'Cairo',sans-serif;font-size:12.5px;resize:vertical;min-height:72px;direction:rtl;transition:.2s;color:var(--text-dark)}
+.ntarea:focus{outline:none;border-color:var(--green-main)}
+.mftr{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+.bsave{padding:10px 26px;border:none;border-radius:var(--rs);font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
+.bsave.d-save{background:linear-gradient(135deg,var(--green-main),var(--green-light));color:#fff;box-shadow:0 4px 14px rgba(0,108,53,.3)}
+.bsave.t-save{background:linear-gradient(135deg,#0d3b8e,var(--blue-main));color:#fff;box-shadow:0 4px 14px rgba(21,101,192,.3)}
+.bsave:hover{transform:translateY(-2px)}
+.bcancel{padding:10px 18px;background:#fff;color:var(--text-mid);border:2px solid var(--border);border-radius:var(--rs);font-family:'Cairo',sans-serif;font-size:13px;cursor:pointer;transition:.2s}
+.bcancel:hover{border-color:var(--text-mid)}
+
+/* ─── ADMIN ─── */
+.admin-wrap{padding:20px;max-width:1400px;margin:0 auto}
+.at-card{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:22px}
+.at-hdr{padding:14px 20px;color:#fff;display:flex;align-items:center;justify-content:space-between}
+.at-hdr.teacher-th{background:linear-gradient(135deg,#0d3b8e,var(--blue-main))}
+.at-hdr.director-th{background:linear-gradient(135deg,var(--green-dark),var(--green-main))}
+.at-hdr h3{font-size:15px;font-weight:700}
+table{width:100%;border-collapse:collapse}
+th{background:var(--green-soft);padding:10px 14px;text-align:right;font-size:12px;font-weight:700;color:var(--green-dark);border-bottom:2px solid var(--border)}
+td{padding:10px 14px;font-size:12px;border-bottom:1px solid #f0f0f0;color:var(--text-dark)}
+tr:hover td{background:var(--green-pale)}
+.pbw{background:#e8f5e9;border-radius:8px;height:7px;overflow:hidden;width:90px}
+.pbf{height:100%;background:linear-gradient(90deg,var(--green-main),var(--green-light));border-radius:8px;transition:.5s}
+.pbf.blue-f{background:linear-gradient(90deg,var(--blue-main),var(--blue-light))}
+.vbtn{padding:4px 11px;border-radius:7px;border:1px solid var(--border);background:var(--green-soft);cursor:pointer;font-family:'Cairo',sans-serif;font-size:11px;color:var(--green-dark)}
+
+/* ─── COMPLETE BANNER ─── */
+.cbanner{border-radius:var(--r);padding:18px 22px;text-align:center;margin-bottom:20px;display:none;color:#fff}
+.cbanner.show{display:block;animation:fadeIn .5s ease}
+.cbanner.t-banner{background:linear-gradient(135deg,#0d3b8e,var(--blue-main))}
+.cbanner.d-banner{background:linear-gradient(135deg,#1b5e20,var(--green-main))}
+.cbanner h3{font-size:18px;margin-bottom:4px}
+.cbanner p{opacity:.85;font-size:13px}
+
+/* ─── PROFILE BAR ─── */
+.pbar{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:16px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.pavatar{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;flex-shrink:0}
+.pavatar.t-av{background:linear-gradient(135deg,#0d3b8e,var(--blue-main))}
+.pavatar.d-av{background:linear-gradient(135deg,var(--green-dark),var(--green-main))}
+.pinfo h3{font-size:17px;font-weight:700}
+.pmeta{display:flex;gap:14px;flex-wrap:wrap;margin-top:5px}
+.pmeta span{font-size:11.5px;color:var(--text-light);display:flex;align-items:center;gap:4px}
+.prole-badge{padding:4px 12px;border-radius:12px;font-size:11px;font-weight:700}
+.prole-badge.tb{background:var(--blue-soft);color:var(--blue-main)}
+.prole-badge.db{background:var(--green-soft);color:var(--green-dark)}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--green-dark);color:#fff;padding:11px 22px;border-radius:22px;font-size:13px;font-weight:600;box-shadow:0 8px 30px rgba(0,0,0,.2);z-index:999;transition:transform .4s cubic-bezier(.68,-.55,.27,1.55);white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* hidden inputs */
+.hfi{display:none}
+
+/* director evaluation mode */
+.auto-rating-box{background:linear-gradient(135deg,#e8f5e9,#f0faf2);border:2px solid var(--green-light);border-radius:var(--rs);padding:16px 20px;margin-bottom:18px;text-align:center}
+.auto-rating-box .ar-title{font-size:12px;font-weight:700;color:var(--text-mid);margin-bottom:10px}
+.auto-rating-box .ar-stars{display:flex;justify-content:center;gap:6px;margin-bottom:8px}
+.auto-rating-box .ar-star{font-size:26px;color:#ddd;transition:.2s}
+.auto-rating-box .ar-star.on{color:var(--gold)}
+.auto-rating-box .ar-label{font-size:15px;font-weight:700;color:var(--green-dark)}
+.auto-rating-box .ar-desc{font-size:11px;color:var(--text-light);margin-top:4px}
+.teacher-notice{background:#fff8e1;border:1px solid #ffe082;border-radius:var(--rs);padding:12px 16px;margin-bottom:16px;font-size:12.5px;color:#795548;text-align:center;line-height:1.7}
+.dir-eval-info{background:linear-gradient(135deg,#e8f5e9,#fff);border-radius:var(--rs);padding:12px 16px;margin-bottom:16px;border:1px solid var(--border);font-size:12px;color:var(--text-mid)}
+.dir-eval-info strong{color:var(--green-dark)}
+
+/* level indicators */
+.level-row{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:9px;margin-bottom:6px;border:1.5px solid transparent;transition:.15s;cursor:default}
+.level-row.lvl-1{background:#fff8f8;border-color:#ffcdd2}.level-row.lvl-1 .lnum{background:#c62828;color:#fff}
+.level-row.lvl-2{background:#fff8e1;border-color:#ffe082}.level-row.lvl-2 .lnum{background:#f57f17;color:#fff}
+.level-row.lvl-3{background:#f3f8ff;border-color:#90caf9}.level-row.lvl-3 .lnum{background:#1565c0;color:#fff}
+.level-row.lvl-4{background:#f1f8e9;border-color:#a5d6a7}.level-row.lvl-4 .lnum{background:#2e7d32;color:#fff}
+.level-row.lvl-5{background:#fffde7;border-color:#ffe082}.level-row.lvl-5 .lnum{background:#f9a825;color:#fff}
+.level-row.selected{box-shadow:0 0 0 2px var(--green-main);transform:scale(1.01)}
+.level-row.lvl-5.selected{box-shadow:0 0 0 2px #f9a825}
+.lnum{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;margin-top:2px}
+.llabel{font-size:11px;font-weight:700;margin-bottom:2px}
+.ltext{font-size:11.5px;color:var(--text-mid);line-height:1.6}
+
+/* responsive */
+@media(max-width:640px){
+  .home-cards{grid-template-columns:1fr}
+  .crit-grid{grid-template-columns:1fr}
+  .hdr-txt h1{font-size:13px}
+  .dash{padding:12px}
+  .imgs-grid{gap:5px}
+  .rate-btns .rl{display:none}
+}
+@media print{.hdr,.moverlay,.hfi,.nbtn,.bsave,.bcancel,.filter-bar,.fbtn,button{display:none!important}.page{display:block!important}body{background:#fff}.ccard{break-inside:avoid;box-shadow:none;border:1px solid #ddd}}
+</style>
+</head>
+<body>
+
+<!-- MINISTRY BAR -->
+<div class="ministry-bar">
+  <div class="ministry-titles">
+    <div class="mt1">🇸🇦 المملكة العربية السعودية</div>
+    <div class="mt2">وزارة التعليم</div>
+    <div class="mt3">الإدارة العامة للتعليم بمحافظة جدة</div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-logo">
+      <div class="hdr-emblem">🏫</div>
+      <div class="hdr-txt">
+        <h1>مدرسة عبيدة بن الحارث المتوسطة</h1>
+        <p>وزارة التعليم · الإدارة العامة للتعليم بمحافظة جدة</p>
+      </div>
+    </div>
+    <nav class="hdr-nav" id="hdrNav"></nav>
+  </div>
+</header>
+
+<!-- ══════════════════ LOGIN PAGE ══════════════════ -->
+<div class="page active" id="pgLogin">
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-hero">
+        <div class="school-badge">
+          <span class="icon">🏫</span>
+          <div class="name">مدرسة عبيدة بن الحارث المتوسطة</div>
+          <div class="sub">منظومة ملف الأداء الوظيفي — 1447 هـ</div>
+        </div>
+      </div>
+      <div class="login-tabs">
+        <button class="ltab active" id="ltab1" onclick="switchLTab('login')">🔐 تسجيل الدخول</button>
+        <button class="ltab" id="ltab2" onclick="switchLTab('register')">✅ حساب جديد</button>
+      </div>
+      <div class="login-body">
+        <!-- LOGIN -->
+        <div id="frmLogin">
+          <div class="fg">
+            <label class="flbl">📧 البريد الإلكتروني</label>
+            <input class="finp" id="lEmail" type="text" placeholder="أدخل البريد الإلكتروني">
+          </div>
+          <div class="fg">
+            <label class="flbl">🔒 كلمة المرور</label>
+            <input class="finp" id="lPass" type="password" placeholder="كلمة المرور">
+            <div class="ferr" id="lErr">بيانات الدخول غير صحيحة</div>
+          </div>
+          <button class="btn-main" onclick="doLogin()">🔐 دخول</button>
+          <div class="demo-hint">
+            للدخول كمسؤول:<br>
+            <strong>admin@ubaidah.sa</strong> &nbsp;/&nbsp; <strong>admin123</strong>
+          </div>
+        </div>
+        <!-- REGISTER -->
+        <div id="frmRegister" style="display:none">
+          <div class="fg">
+            <label class="flbl">👤 الاسم الكامل</label>
+            <input class="finp" id="rName" type="text" placeholder="الاسم الثلاثي">
+          </div>
+          <div class="fg">
+            <label class="flbl">📧 البريد الإلكتروني</label>
+            <input class="finp" id="rEmail" type="email" placeholder="email@ubaidah.sa">
+          </div>
+          <div class="fg">
+            <label class="flbl">👔 الدور الوظيفي</label>
+            <div class="role-row" id="roleRow">
+              <div class="role-opt selected" id="roleT" onclick="selectRole('teacher')">
+                <span class="ri">👨‍🏫</span><span class="rl">معلم</span>
+              </div>
+              <div class="role-opt" id="roleD" onclick="selectRole('director')">
+                <span class="ri">🏫</span><span class="rl">مدير المدرسة</span>
+              </div>
+            </div>
+          </div>
+          <div class="fg" id="specGroup">
+            <label class="flbl">🎓 التخصص (يمكن اختيار أكثر من تخصص)</label>
+            <div class="check-grid" id="specGrid">
+              <label class="chk-opt"><input type="checkbox" value="لغة عربية"> لغة عربية</label>
+              <label class="chk-opt"><input type="checkbox" value="رياضيات"> رياضيات</label>
+              <label class="chk-opt"><input type="checkbox" value="علوم"> علوم</label>
+              <label class="chk-opt"><input type="checkbox" value="تربية إسلامية"> تربية إسلامية</label>
+              <label class="chk-opt"><input type="checkbox" value="لغة إنجليزية"> لغة إنجليزية</label>
+              <label class="chk-opt"><input type="checkbox" value="اجتماعيات"> اجتماعيات</label>
+              <label class="chk-opt"><input type="checkbox" value="حاسب آلي"> حاسب آلي</label>
+              <label class="chk-opt"><input type="checkbox" value="تربية بدنية"> تربية بدنية</label>
+              <label class="chk-opt"><input type="checkbox" value="فنون"> فنون</label>
+              <label class="chk-opt"><input type="checkbox" value="مهارات حياتية"> مهارات حياتية</label>
+              <label class="chk-opt"><input type="checkbox" value="أحياء"> أحياء</label>
+              <label class="chk-opt"><input type="checkbox" value="كيمياء"> كيمياء</label>
+              <label class="chk-opt"><input type="checkbox" value="فيزياء"> فيزياء</label>
+              <label class="chk-opt"><input type="checkbox" value="تفسير"> تفسير</label>
+            </div>
+            <div style="margin-top:6px">
+              <input class="finp" id="rSpecOther" type="text" placeholder="تخصص آخر (اختياري)..." style="font-size:12px;padding:7px 11px">
+            </div>
+          </div>
+          <div class="fg">
+            <label class="flbl">📚 الصفوف الدراسية (يمكن اختيار أكثر من صف)</label>
+            <div class="check-grid">
+              <label class="chk-opt"><input type="checkbox" id="lvl1" value="أول متوسط"> أول متوسط</label>
+              <label class="chk-opt"><input type="checkbox" id="lvl2" value="ثاني متوسط"> ثاني متوسط</label>
+              <label class="chk-opt"><input type="checkbox" id="lvl3" value="ثالث متوسط"> ثالث متوسط</label>
+            </div>
+          </div>
+          <div class="fg">
+            <label class="flbl">🔒 كلمة المرور</label>
+            <input class="finp" id="rPass" type="password" placeholder="6 أحرف على الأقل">
+            <div class="ferr" id="rErr">يرجى ملء جميع الحقول</div>
+          </div>
+          <button class="btn-main" onclick="doRegister()">✅ إنشاء الحساب</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ HOME SELECTOR ══════════════════ -->
+<div class="page" id="pgHome">
+  <div class="home-wrap">
+    <div class="home-greeting">
+      <h2 id="homeGreet">مرحباً 👋</h2>
+      <p id="homeSubtitle">ملف الأداء الوظيفي</p>
+    </div>
+    <div class="home-cards" id="homeCards">
+      <!-- Cards rendered dynamically based on role -->
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ DASHBOARD ══════════════════ -->
+<div class="page" id="pgDash">
+  <div class="dash">
+    <!-- Profile bar -->
+    <div class="pbar">
+      <div class="pavatar" id="dashAvatar">👤</div>
+      <div class="pinfo">
+        <h3 id="dashName">—</h3>
+        <div class="pmeta">
+          <span>🎓 <span id="dashSpec">—</span></span>
+          <span>📚 <span id="dashLevel">—</span></span>
+          <span>📅 العام الدراسي 1447 هـ</span>
+          <span class="prole-badge" id="dashRoleBadge">—</span>
+        </div>
+      </div>
+      <div style="margin-right:auto;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="nbtn" onclick="goBack()">🏠 الرئيسية</button>
+        <button class="nbtn gold" onclick="window.print()">🖨️ طباعة</button>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="dash-hero" id="dashHero">
+      <div>
+        <h2 id="dashHeroTitle">ملف الأداء الوظيفي</h2>
+        <p>أكمل جميع عناصر التقييم ورفع الشواهد. يمكنك الحفظ والعودة في أي وقت ☁️</p>
+      </div>
+      <div class="pcirc">
+        <span class="pct" id="dashPct">0%</span>
+        <span class="plbl">الإتمام</span>
+      </div>
+    </div>
+
+    <!-- Complete banner -->
+    <div class="cbanner" id="dashBanner">
+      <h3 id="bannerTitle">🎉 تهانينا! اكتمل الملف</h3>
+      <p>تم إتمام جميع عناصر التقييم ورفع الشواهد بنجاح</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="scard" id="sc1"><div class="sicon">📋</div><div><div class="sval" id="stTotal">—</div><div class="slbl">إجمالي المعايير</div></div></div>
+      <div class="scard" id="sc2"><div class="sicon">✅</div><div><div class="sval" id="stDone">0</div><div class="slbl">مكتملة</div></div></div>
+      <div class="scard" id="sc3"><div class="sicon">⏳</div><div><div class="sval" id="stPend">—</div><div class="slbl">متبقية</div></div></div>
+      <div class="scard" id="sc4"><div class="sicon">🖼️</div><div><div class="sval" id="stImgs">0</div><div class="slbl">صور مرفوعة</div></div></div>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar" id="filterBar">
+      <button class="fbtn active" id="fa" onclick="filterC('all',this)">الكل</button>
+      <button class="fbtn" id="fb" onclick="filterC('done',this)">✅ مكتملة</button>
+      <button class="fbtn" id="fc" onclick="filterC('pending',this)">⏳ متبقية</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="sec-ttl" id="gridTitle">عناصر التقييم</div>
+    <div class="crit-grid" id="critGrid"></div>
+  </div>
+</div>
+
+<!-- ══════════════════ ADMIN PAGE ══════════════════ -->
+<div class="page" id="pgAdmin">
+  <div class="admin-wrap">
+    <div class="sec-ttl" style="justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <span>لوحة المتابعة — مدرسة عبيدة بن الحارث المتوسطة</span>
+      <button onclick="loadAdmin()" style="padding:6px 14px;background:var(--green-soft);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:12px;color:var(--green-dark);font-weight:600">🔄 تحديث القائمة</button>
+    </div>
+    <div class="at-card">
+      <div class="at-hdr teacher-th" style="display:flex;align-items:center;justify-content:space-between">
+        <h3>👨‍🏫 متابعة أداء المعلمين</h3>
+        <span id="tCount" style="font-size:12px;opacity:.85">0 معلم</span>
+      </div>
+      <div style="overflow-x:auto"><table><thead><tr>
+        <th>#</th><th>الاسم</th><th>التخصص</th><th>الصف</th>
+        <th>الصور المرفوعة</th><th>المعايير المُقيَّمة</th><th>نسبة التقييم</th><th>الإجراءات</th>
+      </tr></thead><tbody id="tBody"></tbody></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ MODAL ══════════════════ -->
+<div class="moverlay" id="modal">
+  <div class="modal">
+    <div class="mhdr" id="mhdr">
+      <h3 id="mTitle">—</h3>
+      <button class="mclose" onclick="closeModal()">✕</button>
+    </div>
+    <div class="mbody">
+      <!-- Director evaluating a teacher: info bar -->
+      <div class="dir-eval-info" id="dirEvalInfo" style="display:none">
+        👨‍🏫 تقييم المعلم: <strong id="dirEvalTeacherName">—</strong>
+        &nbsp;|&nbsp; عدد الشواهد المرفوعة: <strong id="dirEvalImgCount">0</strong> صورة
+      </div>
+
+      <!-- Auto-rating display (director mode) -->
+      <div class="auto-rating-box" id="autoRatingBox" style="display:none">
+        <div class="ar-title">📊 التقدير التلقائي بناءً على عدد الشواهد</div>
+        <div class="ar-stars" id="arStars"></div>
+        <div class="ar-label" id="arLabel">—</div>
+        <div class="ar-desc" id="arDesc">يمكنك تعديل التقدير يدوياً أدناه إن لزم</div>
+      </div>
+
+      <!-- Teacher notice (teacher mode) -->
+      <div class="teacher-notice" id="teacherNotice" style="display:none">
+        📷 ارفع صور الشواهد لكل معيار<br>
+        <small>سيقوم مدير المدرسة بمراجعة شواهدك وتحديد التقدير تلقائياً حسب عدد الصور المرفوعة</small>
+      </div>
+
+      <!-- Evidence / Description -->
+      <div class="ev-box" id="evBox">
+        <h4 id="evTitle">📌 التفسير والمؤشرات</h4>
+        <div id="evDesc" style="font-size:12px;color:var(--text-mid);line-height:1.7;margin-bottom:10px;padding:8px 12px;background:rgba(255,255,255,.6);border-radius:8px"></div>
+        <div id="evLevels"></div>
+      </div>
+
+      <!-- Rating (hidden for teachers, shown for directors) -->
+      <div class="rate-sec" id="rateSec">
+        <h4>⭐ التقدير (1–5) <small id="rateHint" style="font-weight:400;color:var(--text-light);font-size:11px">— محسوب تلقائياً، يمكن التعديل</small></h4>
+        <div class="rate-btns" id="rateBtns">
+          <button class="rbtn" onclick="setRating(1)"><span class="rn">1</span><span class="rl">مرضي</span></button>
+          <button class="rbtn" onclick="setRating(2)"><span class="rn">2</span><span class="rl">مقبول</span></button>
+          <button class="rbtn" onclick="setRating(3)"><span class="rn">3</span><span class="rl">جيد</span></button>
+          <button class="rbtn" onclick="setRating(4)"><span class="rn">4</span><span class="rl">جيد جداً</span></button>
+          <button class="rbtn" onclick="setRating(5)"><span class="rn">5</span><span class="rl">ممتاز</span></button>
+        </div>
+      </div>
+
+      <!-- Images -->
+      <div class="up-sec">
+        <h4 id="upTitle">🖼️ رفع الشواهد <small style="font-weight:400;color:var(--text-light)">(حتى 5 صور)</small></h4>
+        <div class="imgs-grid" id="imgsGrid"></div>
+        <div class="up-hint" id="upHint">انقر على الخانة لرفع صورة · JPG / PNG</div>
+      </div>
+
+      <!-- Notes -->
+      <div class="note-sec">
+        <h4 id="noteTitle">📝 ملاحظات</h4>
+        <textarea class="ntarea" id="noteArea" placeholder="ملاحظات إضافية..."></textarea>
+      </div>
+    </div>
+    <div class="mftr">
+      <button class="bcancel" onclick="closeModal()">إلغاء</button>
+      <button class="bsave" id="bSave" onclick="saveCrit()">💾 حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden file inputs -->
+<input type="file" class="hfi" id="fi0" accept="image/*" onchange="handleUpload(0,this)">
+<input type="file" class="hfi" id="fi1" accept="image/*" onchange="handleUpload(1,this)">
+<input type="file" class="hfi" id="fi2" accept="image/*" onchange="handleUpload(2,this)">
+<input type="file" class="hfi" id="fi3" accept="image/*" onchange="handleUpload(3,this)">
+<input type="file" class="hfi" id="fi4" accept="image/*" onchange="handleUpload(4,this)">
+
+<div class="toast" id="toast">تم الحفظ ✓</div>
+
+<script>
+/* ════════════════════════════════════════════════
+   DATA — TEACHER CRITERIA (11 معياراً — من نموذج وزارة التعليم)
+   كل معيار يحتوي: icon, color, weight, description (التفسير), levels (مستويات 1-5)
+════════════════════════════════════════════════ */
+const TEACHER_CRITERIA = [
+  {
+    id:'t1', title:'أداء الواجبات الوظيفية', weight:'5%',
+    icon:'📋', color:'#2e7d32', bg:'#e8f5e9',
+    description:'يطبق الأنظمة وقواعد السلوك الوظيفية وأخلاقيات بيئة التعلم، ويعزز الانتماء والولاء للوطن، ويحافظ على خصوصية المعلومات المهنية وحماية البيانات.',
+    levels:[
+      {r:1, text:'يُظهر الحد الأدنى للواجبات الوظيفية المطلوبة منه ويتأخر عن العمل بشكل مستمر ودون مبرر'},
+      {r:2, text:'يُظهر التزاماً محدوداً للواجبات الوظيفية ويحتاج إلى توجيه متكرر ويتأخر عن العمل أحياناً دون سبب واضح'},
+      {r:3, text:'يُظهر التزاماً جيداً للواجبات الوظيفية الأساسية ويؤديها ويظهر استعداداً لتحمل المسؤوليات الإضافية بشكل غير منتظم، ويلتزم بمواعيد العمل معظم الوقت'},
+      {r:4, text:'يلتزم بوضوح بالواجبات الوظيفية بشكل جيد ودون الحاجة إلى توجيه مستمر ويتحمل المهام الإضافية ويحرص على تحسين الأداء بشكل مستمر، ويلتزم بمواعيد العمل بشكل منتظم ولا يتأخر إلا لأسباب مبررة'},
+      {r:5, text:'يلتزم تماماً ويُظهر احترافية عالية في أداء جميع الواجبات الوظيفية دون الحاجة إلى أي توجيه، ويُبادر بشكل استباقي إلى تحمل المسؤوليات الإضافية ويتولى المهام الأكثر تعقيداً، ودائم الالتزام بمواعيد العمل، ويكون حاضراً بشكل دائم قبل الوقت المطلوب'}
+    ]
+  },
+  {
+    id:'t2', title:'التفاعل مع المجتمع المهني', weight:'5%',
+    icon:'🤝', color:'#1565c0', bg:'#e3f2fd',
+    description:'المشاركة الفعالة في مجتمعات وشبكات التعليم تُسهم في تبادل المعرفة وتطوير المهارات المهنية وتعزيز أفضل الممارسات التعليمية.',
+    levels:[
+      {r:1, text:'يُظهر الحد الأدنى من الاهتمام والجهد للتفاعل مع المجتمع المهني'},
+      {r:2, text:'يتواجد في أنشطة المجتمع المهني دون المشاركة الفعالة'},
+      {r:3, text:'يشارك في بعض فعاليات وأنشطة المجتمع المهني، بشكل غير منتظم أو عندما يكون مطلوباً منه'},
+      {r:4, text:'يشارك بانتظام في أنشطة وفعاليات المجتمع المهني ويُظهر تفاعلاً إيجابياً مع الزملاء في مجال عمله'},
+      {r:5, text:'يشارك بشكل استباقي ودائم في جميع الفعاليات والأنشطة المهنية ذات الصلة ويشجع الآخرين على المشاركة والتفاعل المستمر ويُظهر استعداداً للمساعدة'}
+    ]
+  },
+  {
+    id:'t3', title:'التفاعل مع أولياء الأمور', weight:'5%',
+    icon:'👨‍👩‍👧', color:'#6a1b9a', bg:'#f3e5f5',
+    description:'المساهمة في دعم وتحقيق بيئة تعليمية فعالة لتحسين التحصيل الدراسي للطلبة وتعزيز تجربتهم لدعم التطور التعليمي والشخصي لهم.',
+    levels:[
+      {r:1, text:'نادراً ما يشارك في أي نوع من التواصل مع أولياء الأمور'},
+      {r:2, text:'يشارك في التواصل مع أولياء الأمور بشكل محدود عند الطلب، ويُقدم معلومات غير كافية حول أداء المتعلمين'},
+      {r:3, text:'يشارك في التواصل مع أولياء الأمور عند الحاجة، يقدم معلومات كافية حول أداء المتعلمين'},
+      {r:4, text:'يتواصل بانتظام مع أولياء الأمور، ويقدم معلومات كافية ومفيدة حول احتياجات وأداء المتعلمين ويستجيب لأسئلتهم ومخاوفهم بسرعة وفعالية'},
+      {r:5, text:'يُبادر بالتواصل الدائم الفعال مع أولياء الأمور، ويقدم معلومات دقيقة وشاملة عن احتياجات وأداء المتعلمين تساهم بشكل استباقي في التطوير والتحسين'}
+    ]
+  },
+  {
+    id:'t4', title:'التنوع في استراتيجيات التدريس', weight:'10%',
+    icon:'🎯', color:'#e65100', bg:'#fff3e0',
+    description:'قدرة المعلم على استخدام أساليب وطرائق تدريس مناسبة لتعزيز عملية التعلم، واستخدام استراتيجيات تنمي القدرة على التفكير والإبداع والحوار.',
+    levels:[
+      {r:1, text:'يعتمد فقط على طرق التدريس التقليدية والمباشرة مثل الشرح النظري دون إشراك المتعلمين'},
+      {r:2, text:'يستخدم استراتيجيات تدريس تقليدية، مع استخدام محدود لبعض الطرق الحديثة للأنشطة التعليمية التي لا تتناسب مع أهداف التدريس'},
+      {r:3, text:'يستخدم استراتيجيات تدريس مناسبة ومتنوعة وفعالة بشكل غير منتظم، وقد يواجه صعوبة في التطبيق الفعال'},
+      {r:4, text:'يُظهر استعداداً لتجربة استراتيجيات تدريس جديدة مناسبة وفعالة، تتناسب مع أهداف الدرس واحتياجات المتعلمين، يستخدم مجموعة متوازنة من الأنشطة التعليمية التي تشمل التعلم التفاعلي، التعليم التعاوني، والمشاريع العملية'},
+      {r:5, text:'يُكيّف استراتيجيات التدريس بشكل فردي بناءً على احتياجات كل طالب، ويُظهر مهارة استثنائية في الجمع بين الشرح النظري والتطبيق العملي، مما يحفز المتعلمين ويُشركهم بفاعلية في عملية التعلم'}
+    ]
+  },
+  {
+    id:'t5', title:'تحسين نتائج المتعلمين', weight:'10%',
+    icon:'📈', color:'#00695c', bg:'#e0f2f1',
+    description:'عملية تحسين التحصيل الدراسي تهدف إلى معالجة نقاط الضعف وتطوير نقاط القوة في أداء المتعلمين الأكاديمي وتنمية مهاراتهم.',
+    levels:[
+      {r:1, text:'نادراً ما يوفر أي دعم للمتعلمين الذين يواجهون صعوبات في الأداء'},
+      {r:2, text:'يوفر بعض الدعم للمتعلمين، لكنه غير كافٍ لتحسين أدائهم بشكل ملموس'},
+      {r:3, text:'يُقدم دعماً إضافياً للمتعلمين ذوي الأداء الضعيف، يضع أهدافاً لتحسين النتائج، لكن المتابعة والتقييم غير منتظمة وتحتاج إلى تحسين في استهداف الاحتياجات الفردية'},
+      {r:4, text:'يُقدم دعماً مخصصاً للمتعلمين ويستخدم استراتيجيات فعالة لمعالجة نقاط القصور وتعزيز نقاط القوة، ويضع أهدافاً واضحة لتحسين نتائج المتعلمين ويتابع تقدمهم بانتظام ويُجري تعديلات على الخطط عند الحاجة'},
+      {r:5, text:'يُقدم دعماً استباقياً ومخصصاً لكل متعلم بناءً على احتياجاته الفردية، ويستخدم استراتيجيات متعددة لتحسين الأداء، ويُظهر تميزاً في تطبيق استراتيجيات تقويمية مبتكرة ومتنوعة تساهم في تحقيق نتائج استثنائية'}
+    ]
+  },
+  {
+    id:'t6', title:'إعداد وتنفيذ خطة التعلم', weight:'10%',
+    icon:'📝', color:'#283593', bg:'#e8eaf6',
+    description:'تمكن المعلم من إعداد خطة منظمة تساعد على تحديد الأهداف التعليمية وتنفيذها بوضوح مما يحسن جودة الأداء التدريسي.',
+    levels:[
+      {r:1, text:'نادراً ما يقوم بإعداد خطة التعلم ويعتمد بشكل كامل على التدريس المباشر دون إعداد مسبق'},
+      {r:2, text:'يقوم بإعداد خطة تعلم تتضمن أهدافاً تعليمية غير واضحة، ويعتمد على المواد الجاهزة دون تخصيص أو تطوير المحتوى ليتناسب مع المتعلمين. ويفتقر إلى التنويع في أساليب التدريس'},
+      {r:3, text:'يقوم بإعداد خطة تعلم تتضمن أهدافاً تعليمية واضحة ومحددة لا تراعي الفروق الفردية بين المتعلمين ولا تغطي المحتوى التعليمي، ويستخدم مواد تعليمية غير كافية ولا ينوع في استخدام أساليب التدريس'},
+      {r:4, text:'يقوم بإعداد خطة تعلم تتضمن أهدافاً تعليمية واضحة ومحددة وقابلة للقياس تراعي الفروق الفردية بين المتعلمين، وتلبي جميع احتياجاتهم بشكل فعال. وينظم الدرس بشكل منطقي ويخصص وقتاً كافياً لكل نشاط ويراعي التنوع في أساليب التدريس'},
+      {r:5, text:'يقوم بإعداد خطة تعلم تتضمن أهدافاً تعليمية واضحة ومحددة وقابلة للقياس تراعي الفروق الفردية بين المتعلمين، ويكيفها وفق احتياجات جميع المتعلمين، ويستخدم أساليب تدريس مبتكرة ومتنوعة، مع مراعاة أساليب التعلم واستخدام مواد تعليمية تفاعلية لتعزيز فهم المتعلمين'}
+    ]
+  },
+  {
+    id:'t7', title:'توظيف تقنيات ووسائل التعلم المناسبة', weight:'10%',
+    icon:'💻', color:'#00838f', bg:'#e0f7fa',
+    description:'قدرة المعلم على استخدام الوسائل التعليمية والأدوات المتنوعة المناسبة للموقف التعليمي لتحسين العملية التعليمية.',
+    levels:[
+      {r:1, text:'نادراً ما يستخدم التقنيات والوسائل التعليمية المناسبة'},
+      {r:2, text:'يستخدم التقنيات والوسائل التعليمية بشكل محدود ولا تتناسب مع المحتوى التعليمي'},
+      {r:3, text:'يستخدم أغلب التقنيات والوسائل التعليمية المناسبة ويوظفها بشكل منتظم وتتناسب مع المحتوى التعليمي'},
+      {r:4, text:'يستخدم جميع التقنيات والوسائل التعليمية المتوفرة بالمدرسة المناسبة ويوظفها بشكل منتظم وتتناسب مع احتياجات المتعلمين مما يعزز من فعالية الدروس'},
+      {r:5, text:'يستخدم جميع التقنيات والوسائل التعليمية المتوفرة بالمدرسة ويُظهر مهارة استثنائية في دمج التقنيات الحديثة بشكل سلس في الدروس، مع تحسين تفاعل المتعلمين واستيعابهم للمحتوى، يستخدم الأدوات التقنية بفعالية لتحفيز المتعلمين'}
+    ]
+  },
+  {
+    id:'t8', title:'تهيئة البيئة التعليمية', weight:'5%',
+    icon:'🌱', color:'#558b2f', bg:'#f1f8e9',
+    description:'قدرة المعلم على ممارسة عمليات توفر للمتعلمين على اختلاف قدراتهم وميولهم واهتماماتهم واحتياجاتهم التعليمية فرصاً متكافئة لفهم واستيعاب المفاهيم.',
+    levels:[
+      {r:1, text:'نادراً ما يخلق بيئة تعليمية محفزة أو داعمة للتعلم النشط'},
+      {r:2, text:'يبني بيئة تعليمية تعزز فهم الطالب بشكل جزئي للمعرفة'},
+      {r:3, text:'يبني بيئة تعليمية تعزز فهم الطالب للمعرفة وتراعي الفروق الفردية بين المتعلمين'},
+      {r:4, text:'يبني بيئة تعليمية معززة ومحفزة للتعليم والتعلم وفق احتياجات المتعلمين'},
+      {r:5, text:'يبني بيئة تعليمية آمنة معززة ومحفزة للتعليم، تستدعي خبرات المتعلمين، وتنمي مهاراتهم لتقديم معارف جديدة تستند على الدروس السابقة'}
+    ]
+  },
+  {
+    id:'t9', title:'الإدارة الصفية', weight:'5%',
+    icon:'👥', color:'#c62828', bg:'#ffebee',
+    description:'جميع الخطوات والإجراءات اللازمة لتحقيق بيئة صفية آمنة وجاذبة وملائمة لعمليتي التعلم والتعليم تأخذ بعين الاعتبار الأبعاد النفسية والاجتماعية والعقلية والجسمية للمتعلم.',
+    levels:[
+      {r:1, text:'نادراً ما يدير الصف بفاعلية'},
+      {r:2, text:'يدير الصف دون مراعاة القوانين والتعليمات الصفية'},
+      {r:3, text:'يدير الصف بفاعلية ويُظهر قدرة على توجيه المتعلمين لتطبيق القوانين والتعليمات الصفية'},
+      {r:4, text:'يدير الصف بفاعلية ويوفر بيئة صفية ممتعة، وإعطاء فرص متكافئة للطلاب للإجابة عن الأسئلة'},
+      {r:5, text:'يدير الصف بكفاءة عالية يبني علاقات إيجابية مع المتعلمين ويشجع التفاعل بين الأقران ويوفر بيئة صفية محفزة تستثير المعرفة، ويمتلك القدرة على التعامل مع الطلبة وفق احتياجاتهم'}
+    ]
+  },
+  {
+    id:'t10', title:'تحليل نتائج المتعلمين وتشخيص مستوياتهم', weight:'10%',
+    icon:'📊', color:'#4527a0', bg:'#ede7f6',
+    description:'تحليل البيانات لتطوير التعلم عملية تستخلص الحقائق والاستنتاجات من البيانات لتقييم أداء المتعلمين بوضوح وتقديم تغذية راجعة بناءة.',
+    levels:[
+      {r:1, text:'نادراً ما يقوم بتحليل نتائج المتعلمين بشكل منهجي'},
+      {r:2, text:'يُجري تحليلاً محدوداً للنتائج، ولكن دون الاعتماد على أدوات أو أساليب دقيقة'},
+      {r:3, text:'يُجري تحليلاً أساسياً لنتائج المتعلمين باستخدام بعض الأدوات أو الأساليب المتاحة'},
+      {r:4, text:'يُجري تحليلاً دقيقاً وشاملاً لنتائج المتعلمين باستخدام أدوات وأساليب منهجية، ويقدم تشخيصاً دقيقاً لاحتياجات كل متعلم بناءً على بيانات تحليلية واضحة، ويقدم توصيات مخصصة لتحسين أداء المتعلمين'},
+      {r:5, text:'يُجري تحليلاً متقدماً ودقيقاً لنتائج المتعلمين باستخدام تقنيات تحليل البيانات المتقدمة لتحديد التوجهات الفردية والجماعية، يقدم تشخيصاً دقيقاً وشاملاً لمستويات المتعلمين ويستخدم التحليل لتقديم خطط تطوير فردية مخصصة'}
+    ]
+  },
+  {
+    id:'t11', title:'تنوع أساليب التقويم', weight:'10%',
+    icon:'✅', color:'#2e7d32', bg:'#e8f5e9',
+    description:'استخدام مجموعة متنوعة من الطرق لتقييم التقدم والإنجازات الأكاديمية للمتعلمين، تشمل التقويم القبلي التشخيصي والتكويني والختامي.',
+    levels:[
+      {r:1, text:'نادراً ما يستخدم أساليب وأدوات تقييم مناسبة'},
+      {r:2, text:'يعتمد فقط على نوع واحد من أساليب التقييم، لكنه قد لا يكون شاملاً بشكل كافٍ'},
+      {r:3, text:'يستخدم أساليب وأدوات تقييم مناسبة تقوم على أسس علمية، ويوظف مجموعة من أساليب التقييم متوافقة مع طبيعة الأهداف ومخرجات التعلم'},
+      {r:4, text:'يستخدم أساليب وأدوات تقييم مناسبة لرفع مستوى التحصيل الدراسي ويستخدم مجموعة متنوعة من أساليب التقويم تشمل الاختبارات التحريرية، المشاريع العملية، التقييمات الشفوية، والتقويم الإلكتروني'},
+      {r:5, text:'يستخدم أساليب وأدوات تقييم مناسبة لرفع مستوى التحصيل وتوظيفها في تحسين عملية التعليم، واستخدام أساليب تقييم تساعد على قياس مدى تحقق أهداف العملية التعليمية وقياس تقدم التعلم وإصدار أحكام عن مستويات الطلبة'}
+    ]
+  }
+];
+
+/* ════════════════════════════════════════════════
+   DATA — DIRECTOR CRITERIA (19 معياراً — 100%)
+════════════════════════════════════════════════ */
+const DIRECTOR_CRITERIA = [
+  { id:'d1', title:'أداء الواجبات الوظيفية', weight:'5%', evidence:[
+    'سجل العمل الرسمي ومتابعة إجراءات التأخير والغياب والاستئذان للموظفات',
+    'التوقيت الزمني لليوم الدراسي',
+    'الالتزام الدائم بمواعيد العمل',
+    'تفعيل المناوبة والإشراف واعداد تقاريرها',
+    'سجل الانتظار ومتابعة تفعيل حصص الانتظار',
+    'اعداد الجدول المدرسي واعتماده ونشره وتفعيله',
+    'اعداد جدول الانتظار العام واعتماده ونشره وتفعيله',
+    'حصر حصص الانتظار',
+    'تفعيل الاجتماعات والتبليغات الداخلية',
+    'توثيق اطلاع الموظفات على الأدلة والتعاميم الهامة',
+    'متابعة منسوبات المدرسة في حضور الطابور الصباحي',
+    'متابعة سير الحصص الدراسية',
+    'متابعة تفعيل حصص الإتقان',
+    'تحديث بيانات الموظفات في نظامي نور وفارس',
+    'متابعة تفعيل قواعد السلوك الوظيفي وأخلاقيات الوظيفة العامة'
+  ]},
+  { id:'d2', title:'التفاعل مع المجتمع المهني', weight:'5%', evidence:[
+    'الأنشطة والفعاليات المهنية التي تم المشاركة بها',
+    'مساعدة الآخرين للمشاركة في الأنشطة والفعاليات',
+    'تفعيل الشراكات المهنية',
+    'تفعيل المنصات التقنية للتطوير المهني'
+  ]},
+  { id:'d3', title:'التفاعل مع أولياء الأمور', weight:'5%', evidence:[
+    'تفعيل الشراكة المجتمعية مع أولياء الأمور في العملية التعليمية',
+    'المبادرة في التواصل المستمر مع أولياء الأمور لمناقشة التقدم العلمي والاجتماعي',
+    'تقديم معلومات دقيقة وشاملة عن احتياجات وأداء المتعلمين للتطوير والتحسين',
+    'تفعيل المجالس الدورية مع أولياء الأمور',
+    'اعداد استبانات لقياس رضا ولي الأمر والعمل على معالجة السلبيات',
+    'الإعلان عن قنوات التواصل بين المدرسة وأولياء الأمور',
+    'تثقيف أولياء الأمور بالاختبارات الدولية والبرامج الوزارية',
+    'احتواء أولياء الأمور'
+  ]},
+  { id:'d4', title:'مرن وقادر على تنفيذ أعماله في ظل ظروف العمل المختلفة', weight:'5%', evidence:[
+    'القدرة على مواجهة المواقف التي تنطوي على مخاطر واتخاذ القرارات البناءة على الحكم المنطقي (ملف الأزمات)',
+    'تفعيل الصلاحيات وحصرها',
+    'إدارة المهام بفاعلية مع الحفاظ على جودتها',
+    'التواصل الفعال مع الجهات الرسمية لإنجاز المهام'
+  ]},
+  { id:'d5', title:'يدعم ويشارك في المبادرات النوعية', weight:'5%', evidence:[
+    'الدعم والمشاركة في المبادرات النوعية وتقييمها وتطويرها',
+    'اعداد التقارير حول المبادرات المقدمة',
+    'متابعة تفعيل العمل التطوعي واعداد التقارير الخاصة به',
+    'متابعة طالبات الصف الثالث ثانوي في اكمال ساعات التطوع ومعالجة القصور'
+  ]},
+  { id:'d6', title:'يتخذ إجراءات تربوية تحقق الانضباط المدرسي', weight:'5%', evidence:[
+    'اعداد خطة خاصة لرفع نسب انضباط الطالبات ومنسوبات المدرسة',
+    'المشاركة في تطبيق قواعد السلوك والمواظبة وفق الضوابط لتحقيق الانضباط المدرسي',
+    'تقييم وتطوير الإجراءات مع فرق العمل بالمدرسة',
+    'تفعيل سجل غياب الطالبات اليومي واكمال بنوده',
+    'التواصل مع أولياء الأمور بالطرق المتاحة لمتابعة الغياب والتأخير',
+    'تفعيل سجل التأخير الصباحي',
+    'تفعيل سجل الاستئذان للطالبات',
+    'رصد الغياب والتأخير في نظام نور'
+  ]},
+  { id:'d7', title:'يدير الموارد في المدرسة بكفاءة', weight:'5%', evidence:[
+    'تفعيل اللجان والفرق',
+    'توزيع المهام على منسوبي المدرسة بكفاءة وعدالة وموضوعية',
+    'استثمار الموارد المادية والبشرية داخل المدرسة لتحقيق أفضل النتائج'
+  ]},
+  { id:'d8', title:'يعد خطة للتطوير المهني', weight:'5%', evidence:[
+    'وضع خطة التطوير المهني لمنسوبات المدرسة',
+    'تطوير الخطط من أجل تحسين الأداء',
+    'تفعيل أوعية التطوير المهني لمنسوبات المدرسة (ورش عمل، دورات تدريبية، مجموعات التعلم المهنية، تبادل زيارات، دروس تطبيقية...)',
+    'نقل الخبرة بين الزميلات عند حضور معلمة لدورة تدريبية',
+    'تصنيف منسوبات المدرسة وتحديد الفئة الأولى بالرعاية ودعمها',
+    'حصر الحاصلات على الرخصة المهنية ودعم الحصول عليها'
+  ]},
+  { id:'d9', title:'يقدم التغذية الراجعة ويتابع تحقق مؤشرات الأداء الوظيفي', weight:'5%', evidence:[
+    'شرح بنود الأداء الوظيفي لمنسوبات المدرسة',
+    'استخدام منهجية واضحة لقياس مدى تقدم مؤشرات الأداء',
+    'تقديم توصيات واضحة لتحسين أداء منسوبي المدرسة',
+    'تزويد منسوبات المدرسة بنسخة من استمارة المتابعة للعمل على التوصيات'
+  ]},
+  { id:'d10', title:'يدعم تنفيذ برامج التطوير المهني', weight:'5%', evidence:[
+    'تقويم مجالات التطوير المهني وتقيس أثرها وتطورها',
+    'تصنيف منسوبات المدرسة وتحديد الفئة الأولى بالرعاية ودعمها',
+    'حصر الحاصلات على الرخصة المهنية ودعم الحصول عليها',
+    'حصر الاحتياجات التدريبية لمنسوبات المدرسة'
+  ]},
+  { id:'d11', title:'يقيم أداء منسوبي المدرسة', weight:'5%', evidence:[
+    'تقويم أداء المرؤسين بالاستناد على مصادر تقويم الأداء الوظيفي',
+    'تصنيف منسوبي المدرسة وفقاً لمستويات الأداء',
+    'وضع خطة لتطوير الأقل أداء',
+    'اعتماد الأداء الوظيفي لمنسوبات المدرسة واطلاعهن عليه'
+  ]},
+  { id:'d12', title:'ينفذ إجراءات علمية لتحسين نتائج التعلم', weight:'5%', evidence:[
+    'تشخيص أداء المتعلمين',
+    'تصنيف أداء المتعلمين وفقاً لنتائج التشخيص',
+    'بناء خطة متكاملة لتعزيز المتميزين ومعالجة الأكثر ضعفاً',
+    'اعداد برامج تدريبية للقدرات والتحصيلي',
+    'تكريم الطالبات المتميزات وأولياء أمورهن'
+  ]},
+  { id:'d13', title:'يسهم في تحسين مستوى أداء المدرسة', weight:'10%', evidence:[
+    'تصنيف المدرسة في مستوى أداء (التميز أو المتقدم)',
+    'تحقق المدرسة تقدماً في المعايير قياساً على المستوى السابق بنسبة 5% لمستوى الانطلاق و10% لمستوى التهيئة',
+    'قياس رضا أولياء الأمور عن تعلم بناتهم',
+    'العمل على تحسين نواتج التعلم'
+  ]},
+  { id:'d14', title:'يعد الخطط المدرسية اللازمة', weight:'5%', evidence:[
+    'إعداد خطة مكتملة وشاملة وفق منهجية علمية وتقييمها ووضع خطة بديلة لها',
+    'الخطة التشغيلية – خطة المدرسة الفصلية والأسبوعية – خطة الزيارات',
+    'الخطة الفصلية لمديرة المدرسة',
+    'خطة التحسين وفق النموذج الإشرافي'
+  ]},
+  { id:'d15', title:'يتابع تنفيذ الخطط المدرسية بمختلف أنواعها', weight:'5%', evidence:[
+    'اعداد الخطة التشغيلية وفق الأهداف العامة لوكالة التعليم',
+    'اكمال بنود الخطة',
+    'التقيد بالمجالات المعتمدة من قبل وزارة التعليم',
+    'تفعيل استمارة التنفيذ والمتابعة لبرامج الخطة',
+    'اعداد الجدول الزمني لبرامج الخطة',
+    'توثيق منجزات الخطة واعداد التقارير لها',
+    'قياس الأثر من تنفيذ البرامج',
+    'متابعة تفعيل الخطة الفصلية والأسبوعية ومشاركتها مع ولي الأمر',
+    'توثيق اطلاع منسوبات المدرسة على خطة الزيارات بما لا يقل عن زيارتين خلال العام الدراسي ونشرها',
+    'متابعة خطة تصميم التدريس'
+  ]},
+  { id:'d16', title:'يهيئ الفرص والإمكانات الداعمة لمشاركة الطلاب في الأنشطة', weight:'5%', evidence:[
+    'تهيئة الفرص والإمكانات الداعمة لمشاركة الطالب في الأنشطة الصفية وغير الصفية',
+    'تقييم تنفيذ الأنشطة الصفية وغير الصفية',
+    'تطوير الأنشطة ورفع تقارير للجهات المختصة',
+    'إشراك الطلبة في اختيار الأنشطة التي تناسب اهتماماتهن'
+  ]},
+  { id:'d17', title:'يوظف المنصات الرقمية وتطبيقاتها المعتمدة في دعم عمليات التعليم والتعلم', weight:'5%', evidence:[
+    'توثيق اطلاع منسوبات المدرسة على شروط استخدام المنصات الرقمية وتطبيقاتها',
+    'استخدام المنصات الرقمية وتطبيقاتها لدعم عملية التعليم والتعلم',
+    'توظيف البدائل المتاحة',
+    'متابعة تفعيل منصة مدرستي',
+    'تقديم الدعم اللازم للمشكلات التقنية التي تواجه المعلمات والطالبات في منصة مدرستي'
+  ]},
+  { id:'d18', title:'يتابع تعزيز السلوك الإيجابي للطلاب', weight:'5%', evidence:[
+    'متابعة تفعيل برامج تعزيز السلوك الإيجابي واعداد تقاريرها',
+    'استخدام طرق إبداعية ومبتكرة في تفعيل برامج تعزيز السلوك الإيجابي',
+    'متابعة الحالات الفردية عن طريق الموجهة الطالبية ومتابعة تقارير التحسن',
+    'تكريم الطالبات المتحسنات سلوكياً'
+  ]},
+  { id:'d19', title:'يهيئ بيئة مدرسية آمنة ومحفزة على التعلم', weight:'5%', evidence:[
+    'سلامة لوحة المدرسة',
+    'رفع العلم على سارية المدرسة وسلامته',
+    'توفر صور ولاة الأمر والعلم في إدارة المدرسة',
+    'توفر لوحات إرشادية لمخارج الطوارئ ونقطة التجمع',
+    'فتح مخارج الطوارئ وتهيئة نقطة التجمع',
+    'توفر طفايات الحريق وصلاحيتها',
+    'توفر أسطلة الرمل والبطانيات',
+    'سلامة جهاز الإنذار بالمدرسة',
+    'تفعيل استمارة الجولات التفقدية للأمن والسلامة',
+    'النظافة العامة للمبنى المدرسي',
+    'توفر مواد النظافة وصلاحيتها',
+    'توفر المخطط التفصيلي للمدرسة',
+    'توفر الهيكل التنظيمي للمدرسة',
+    'توفر لوح للإعلانات وتفعيلها في التعزيز',
+    'سلامة المقصف المدرسي ومتابعة الاشتراطات الصحية',
+    'تفعيل استمارة متابعة المقصف المدرسي',
+    'توفر مقر للإرشاد الصحي وتفعيل برامجه',
+    'تفعيل مصادر التعلم',
+    'جرد العهد وتوثيق تسليمها واستلامها'
+  ]}
+];
+
+/* ════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════ */
+let CU = null;       // current user
+let FILE = null;     // 'teacher' | 'director'
+let CRIT_ID = null;  // open criterion
+let TMP_RATING = 0;
+let TMP_IMGS = ['','','','',''];
+
+/* ════════════════════════════════════════════════
+   STORAGE
+════════════════════════════════════════════════ */
+const getUsers = ()=>{ try{return JSON.parse(localStorage.getItem('ub_users')||'{}')}catch{return{}} };
+const saveUsers = u=>localStorage.setItem('ub_users',JSON.stringify(u));
+const getData = email=>{ try{return JSON.parse(localStorage.getItem('ub_data_'+email)||'{}')}catch{return{}} };
+const saveData = (email,d)=>localStorage.setItem('ub_data_'+email,JSON.stringify(d));
+
+/* ════════════════════════════════════════════════
+   AUTH
+════════════════════════════════════════════════ */
+let regRole = 'teacher';
+function selectRole(r){
+  regRole = r;
+  document.getElementById('roleT').classList.toggle('selected', r==='teacher');
+  document.getElementById('roleD').classList.toggle('selected', r==='director');
+  document.getElementById('specGroup').style.display = r==='teacher' ? 'block':'none';
+}
+function switchLTab(t){
+  ['ltab1','ltab2'].forEach((id,i)=>document.getElementById(id).classList.toggle('active',(i===0&&t==='login')||(i===1&&t==='register')));
+  document.getElementById('frmLogin').style.display = t==='login'?'block':'none';
+  document.getElementById('frmRegister').style.display = t==='register'?'block':'none';
+}
+function doLogin(){
+  const email = document.getElementById('lEmail').value.trim();
+  const pass  = document.getElementById('lPass').value;
+  const errEl = document.getElementById('lErr');
+  if(email==='admin@ubaidah.sa' && pass==='admin123'){
+    CU={name:'المسؤول',email:'admin@ubaidah.sa',role:'admin',spec:'إدارة',level:'—'};
+    updateHeader(); showAdminPage(); return;
+  }
+  const users = getUsers();
+  if(!users[email]||users[email].password!==pass){ errEl.style.display='block'; return; }
+  errEl.style.display='none';
+  CU={...users[email],email};
+  updateHeader(); showPage('pgHome');
+  document.getElementById('homeGreet').textContent='مرحباً، '+CU.name+' 👋';
+  renderHomeCards();
+}
+function doRegister(){
+  const name=document.getElementById('rName').value.trim();
+  const email=document.getElementById('rEmail').value.trim();
+  const pass=document.getElementById('rPass').value;
+  const errEl=document.getElementById('rErr');
+
+  // Collect specs (checkboxes + other)
+  const specChecked=[...document.querySelectorAll('#specGrid input[type=checkbox]:checked')].map(c=>c.value);
+  const specOther=document.getElementById('rSpecOther').value.trim();
+  if(specOther) specChecked.push(specOther);
+  const spec=specChecked.join('، ');
+
+  // Collect levels (checkboxes)
+  const levelChecked=[...document.querySelectorAll('#lvl1,#lvl2,#lvl3').values()].filter(c=>c.checked).map(c=>c.value);
+  const level=levelChecked.join(' / ');
+
+  if(!name||!email||pass.length<6){
+    errEl.textContent='يرجى ملء الاسم والبريد وكلمة المرور (6 أحرف على الأقل)';
+    errEl.style.display='block'; return;
+  }
+  if(regRole==='teacher' && !spec){
+    errEl.textContent='يرجى اختيار تخصص واحد على الأقل';
+    errEl.style.display='block'; return;
+  }
+  if(regRole==='teacher' && !level){
+    errEl.textContent='يرجى اختيار صف دراسي واحد على الأقل';
+    errEl.style.display='block'; return;
+  }
+
+  const users=getUsers();
+  if(users[email]){ errEl.textContent='البريد الإلكتروني مسجل مسبقاً'; errEl.style.display='block'; return; }
+  users[email]={name, spec:spec||'—', level:level||'—', password:pass, role:regRole, joinDate:new Date().toLocaleDateString('ar-SA')};
+  saveUsers(users);
+  showToast('تم إنشاء الحساب بنجاح 🎉');
+  setTimeout(()=>{
+    document.getElementById('lEmail').value=email;
+    document.getElementById('lPass').value=pass;
+    switchLTab('login');
+  },700);
+}
+function doLogout(){ CU=null; FILE=null; updateHeader(); showPage('pgLogin'); }
+
+/* ════════════════════════════════════════════════
+   HEADER
+════════════════════════════════════════════════ */
+function updateHeader(){
+  const nav=document.getElementById('hdrNav');
+  if(!CU){ nav.innerHTML=''; return; }
+  const init=CU.name.charAt(0);
+  nav.innerHTML=`
+    <div style="display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.9);font-size:12px">
+      <div class="uavatar">${init}</div><span>${CU.name}</span>
+    </div>
+    ${CU.role==='admin'?`<button class="nbtn" onclick="showAdminPage()">📊 المتابعة</button>`:''}
+    ${CU.role!=='admin'?`<button class="nbtn" onclick="showPage('pgHome')">🏠 الرئيسية</button>`:''}
+    <button class="nbtn" onclick="doLogout()">🚪 خروج</button>
+  `;
+}
+
+/* ════════════════════════════════════════════════
+   PAGES
+════════════════════════════════════════════════ */
+function showPage(id){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function goBack(){ FILE=null; showPage('pgHome'); renderHomeCards(); }
+function showAdminPage(){
+  if(document.getElementById('teacherEvalWrap')){ restoreAdminPage(); return; }
+  showPage('pgAdmin');
+  loadAdmin();
+}
+
+// Auto-refresh admin every 30 seconds when on admin page
+setInterval(()=>{
+  if(CU&&CU.role==='admin'&&document.getElementById('pgAdmin').classList.contains('active')&&!document.getElementById('teacherEvalWrap')){
+    loadAdmin();
+  }
+},30000);
+
+/* ════════════════════════════════════════════════
+   OPEN FILE
+════════════════════════════════════════════════ */
+function openFile(type){
+  FILE=type;
+  const isT=type==='teacher';
+  const criteria=isT?TEACHER_CRITERIA:DIRECTOR_CRITERIA;
+
+  // Profile bar
+  document.getElementById('dashAvatar').innerHTML=isT?'👨‍🏫':'🏫';
+  document.getElementById('dashAvatar').className='pavatar '+(isT?'t-av':'d-av');
+  document.getElementById('dashName').textContent=CU.name;
+  document.getElementById('dashSpec').textContent=CU.spec||'—';
+  document.getElementById('dashLevel').textContent=CU.level||'—';
+  const rb=document.getElementById('dashRoleBadge');
+  rb.textContent=isT?'معلم':'مدير المدرسة';
+  rb.className='prole-badge '+(isT?'tb':'db');
+
+  // Hero
+  const hero=document.getElementById('dashHero');
+  hero.className='dash-hero '+(isT?'teacher-hero':'director-hero');
+  document.getElementById('dashHeroTitle').textContent=isT?'ملف أداء المعلم':'ملف أداء مدير المدرسة';
+
+  // Stats accent
+  ['sc1','sc2','sc3','sc4'].forEach(id=>{
+    document.getElementById(id).className='scard '+(isT?'t-accent':'d-accent');
+  });
+  document.getElementById('stTotal').textContent=criteria.length;
+
+  // Filter buttons
+  ['fa','fb','fc'].forEach(id=>document.getElementById(id).className=id==='fa'?'fbtn active '+(isT?'blue':''):'fbtn '+(isT?'blue':''));
+
+  // Section title
+  const gt=document.getElementById('gridTitle');
+  gt.className='sec-ttl '+(isT?'blue-ttl':'');
+  gt.innerHTML=(isT?'عناصر تقييم أداء المعلم':'عناصر تقييم أداء مدير المدرسة');
+
+  // Banner
+  const bn=document.getElementById('dashBanner');
+  bn.className='cbanner '+(isT?'t-banner':'d-banner');
+  document.getElementById('bannerTitle').textContent=isT?'🎉 تهانينا! اكتمل ملف أداء المعلم':'🎉 تهانينا! اكتمل ملف أداء المدير';
+
+  showPage('pgDash');
+  renderDash();
+}
+
+/* ════════════════════════════════════════════════
+   DASHBOARD
+════════════════════════════════════════════════ */
+function renderDash(){
+  if(!CU||!FILE) return;
+  const isT=FILE==='teacher';
+  const criteria=isT?TEACHER_CRITERIA:DIRECTOR_CRITERIA;
+  const data=getData(CU.email);
+  const key=isT?'teacher':'director';
+  const evals=(data[key]&&data[key].evaluations)||{};
+
+  // For teacher: "done" means has images OR has director rating
+  const done=criteria.filter(c=>{
+    const ev=evals[c.id]||{};
+    return (ev.images||[]).filter(Boolean).length>0 || ev.rating>0;
+  }).length;
+  const rated=criteria.filter(c=>evals[c.id]&&evals[c.id].rating>0).length;
+  const totalImgs=criteria.reduce((s,c)=>s+(evals[c.id]?(evals[c.id].images||[]).filter(Boolean).length:0),0);
+  const pct=Math.round((done/criteria.length)*100);
+
+  document.getElementById('dashPct').textContent=pct+'%';
+  document.getElementById('stDone').textContent=isT?rated:done;
+  document.getElementById('stPend').textContent=criteria.length-(isT?rated:done);
+  document.getElementById('stImgs').textContent=totalImgs;
+
+  // Update stat labels for teacher
+  if(isT){
+    document.querySelector('#sc2 .slbl').textContent='معايير مُقيَّمة';
+    document.querySelector('#sc3 .slbl').textContent='بانتظار التقييم';
+  } else {
+    document.querySelector('#sc2 .slbl').textContent='مكتملة';
+    document.querySelector('#sc3 .slbl').textContent='متبقية';
+  }
+
+  const bn=document.getElementById('dashBanner');
+  if(isT ? rated===criteria.length : done===criteria.length) bn.classList.add('show');
+  else bn.classList.remove('show');
+
+  renderGrid(evals,'all');
+}
+
+function renderGrid(evals,filter){
+  const isT=FILE==='teacher';
+  const criteria=isT?TEACHER_CRITERIA:DIRECTOR_CRITERIA;
+  const grid=document.getElementById('critGrid');
+  grid.innerHTML='';
+  const isTeacherUser=(CU.role==='teacher');
+
+  criteria.forEach((c,i)=>{
+    const ev=evals[c.id]||{};
+    const imgs=(ev.images||[]).filter(Boolean);
+    const hasImgs=imgs.length>0;
+    const hasRating=ev.rating>0;
+
+    // For teacher: card is "done" if has images uploaded
+    // Rating badge shown separately if director rated it
+    const isDone = isTeacherUser ? hasImgs : hasRating;
+
+    if(filter==='done' && !isDone) return;
+    if(filter==='pending' && isDone) return;
+
+    const stars=Array.from({length:5},(_,j)=>
+      `<span class="star ${j<(ev.rating||0)?'on':''}">★</span>`
+    ).join('');
+    const thumbs=imgs.slice(0,3).map(s=>`<img class="cthumb" src="${s}">`).join('');
+    const rLabel=RATING_LABELS[ev.rating||0]||'';
+
+    // Color for rating badge
+    const rColor = ev.rating===5?'#1b5e20': ev.rating===4?'#2e7d32': ev.rating===3?'#388e3c': ev.rating===2?'#e65100':'#b71c1c';
+    const rBg    = ev.rating===5?'#e8f5e9': ev.rating===4?'#f1f8e9': ev.rating===3?'#f9fbe7': ev.rating===2?'#fff3e0':'#fce4ec';
+
+    // Director rating box (shown to teacher if rated)
+    const dirRatingBox = (isTeacherUser && hasRating) ? `
+      <div style="background:${rBg};border:1.5px solid ${rColor};border-radius:10px;padding:7px 12px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:12px;color:${rColor};font-weight:700">⭐ تقدير المدير: ${rLabel} (${ev.rating}/5)</span>
+        <div class="stars" style="gap:2px">${stars}</div>
+      </div>` : '';
+
+    // Status badge
+    let statusBadge='';
+    if(isTeacherUser){
+      if(hasRating){
+        statusBadge=`<span class="cbadge done-blue">✅ تم التقييم</span>`;
+      } else if(hasImgs){
+        statusBadge=`<span class="cbadge" style="background:#fff8e1;color:#f57f17">⏳ بانتظار تقييم المدير</span>`;
+      } else {
+        statusBadge=`<span class="cbadge pend">📷 لم يُرفع شاهد</span>`;
+      }
+    } else {
+      statusBadge=`<span class="cbadge ${hasRating?(isT?'done-blue':'done'):'pend'}">${hasRating?'✅ مكتمل':'⏳ لم يكتمل'}</span>`;
+    }
+
+    grid.innerHTML+=`
+      <div class="ccard ${isDone?(isT?'done-t':'done-d'):''}" onclick="openCrit('${c.id}')" style="border-top:3px solid ${c.color||'var(--green-main)'}">
+        <div class="ccard-hdr ${isT?'teacher-hdr':'director-hdr'}" style="background:${c.bg||'var(--green-soft)'}">
+          <div class="cnum ${isT?'t-num':'d-num'}" style="${c.color?'background:'+c.color:''}">${c.icon||i+1}</div>
+          <div class="ctitle">${c.title}</div>
+          <div class="cwt">${c.weight}</div>
+        </div>
+        <div class="ccard-body">
+          ${dirRatingBox}
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            ${statusBadge}
+            ${hasImgs?`<span class="imgbadge">🖼️ ${imgs.length} صورة</span>`:''}
+          </div>
+          ${!isTeacherUser && hasRating ? `<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><div class="stars">${stars}</div><span style="font-size:11px;color:var(--text-light)">${rLabel}</span></div>`:''}
+          ${thumbs?`<div class="c-imgs">${thumbs}</div>`:''}
+        </div>
+      </div>`;
+  });
+}
+
+function filterC(f,btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const isT=FILE==='teacher';
+  const data=getData(CU.email);
+  const key=isT?'teacher':'director';
+  const evals=(data[key]&&data[key].evaluations)||{};
+  renderGrid(evals,f);
+}
+
+function renderHomeCards(){
+  const cards = document.getElementById('homeCards');
+  const subtitle = document.getElementById('homeSubtitle');
+  if(!CU){ cards.innerHTML=''; return; }
+
+  if(CU.role==='teacher'){
+    subtitle.textContent='ملف أدائك الوظيفي — ارفع شواهدك لكل معيار';
+    cards.innerHTML=`
+      <div class="home-card teacher-card" onclick="openFile('teacher')" style="max-width:420px;margin:0 auto">
+        <div class="hc-icon">👨‍🏫</div>
+        <div class="hc-title">ملف أداء المعلم</div>
+        <div class="hc-desc">معايير التقييم الشامل لأدائك في مدرسة عبيدة بن الحارث المتوسطة — ارفع صور الشواهد لكل معيار</div>
+        <span class="hc-count">11 معياراً — 100%</span>
+      </div>`;
+  } else if(CU.role==='director'){
+    subtitle.textContent='اختر ملف الأداء الوظيفي المناسب لدورك';
+    cards.innerHTML=`
+      <div class="home-card teacher-card" onclick="openFile('teacher')">
+        <div class="hc-icon">👨‍🏫</div>
+        <div class="hc-title">ملف أداء المعلم</div>
+        <div class="hc-desc">معايير التقييم الشامل لأداء المعلمين في مدرسة عبيدة بن الحارث المتوسطة</div>
+        <span class="hc-count">11 معياراً — 100%</span>
+      </div>
+      <div class="home-card director-card" onclick="openFile('director')">
+        <div class="hc-icon">🏫</div>
+        <div class="hc-title">ملف أداء مدير المدرسة</div>
+        <div class="hc-desc">نموذج تقييم أداء مدير المدرسة وفق معايير وزارة التعليم</div>
+        <span class="hc-count">19 معياراً — 100%</span>
+      </div>`;
+  }
+}
+// Auto-calculate rating from number of uploaded images
+function calcRating(imgCount){
+  if(imgCount===0) return 1;
+  if(imgCount===1) return 2;
+  if(imgCount===2) return 3;
+  if(imgCount<=4) return 4;
+  return 5;
+}
+// 5=ممتاز، 4=جيد جداً، 3=جيد، 2=مقبول، 1=مرضي
+const RATING_LABELS=['','مرضي','مقبول','جيد','جيد جداً','ممتاز'];
+
+/* ════════════════════════════════════════════════
+   MODAL — state
+════════════════════════════════════════════════ */
+// EVAL_TARGET: if set, director is evaluating this teacher's email
+let EVAL_TARGET = null;
+
+/* ════════════════════════════════════════════════
+   MODAL — open (self upload mode for teacher/director)
+════════════════════════════════════════════════ */
+function openCrit(id){
+  EVAL_TARGET = null;
+  const isT=FILE==='teacher';
+  const criteria=isT?TEACHER_CRITERIA:DIRECTOR_CRITERIA;
+  const c=criteria.find(x=>x.id===id);
+  if(!c) return;
+  CRIT_ID=id;
+
+  const data=getData(CU.email);
+  const key=isT?'teacher':'director';
+  const ev=((data[key]&&data[key].evaluations)||{})[id]||{};
+
+  TMP_RATING=ev.rating||0;
+  TMP_IMGS=[...(ev.images||['','','','',''])];
+  while(TMP_IMGS.length<5) TMP_IMGS.push('');
+
+  _buildModal(c, isT, false, null, null);
+  document.getElementById('noteArea').value=ev.notes||'';
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+/* ════════════════════════════════════════════════
+   MODAL — open (director evaluating a teacher)
+════════════════════════════════════════════════ */
+function evalTeacherCrit(teacherEmail, critId){
+  EVAL_TARGET = teacherEmail;
+  CRIT_ID = critId;
+
+  const c=TEACHER_CRITERIA.find(x=>x.id===critId);
+  if(!c) return;
+
+  // Load teacher's data (read-only images)
+  const tData=getData(teacherEmail);
+  const tEvals=(tData.teacher&&tData.teacher.evaluations)||{};
+  const tEv=tEvals[critId]||{};
+
+  TMP_IMGS=[...(tEv.images||['','','','',''])];
+  while(TMP_IMGS.length<5) TMP_IMGS.push('');
+
+  const imgCount=TMP_IMGS.filter(Boolean).length;
+  TMP_RATING=tEv.rating||calcRating(imgCount);
+
+  const users=getUsers();
+  const tName=(users[teacherEmail]&&users[teacherEmail].name)||teacherEmail;
+
+  _buildModal(c, true, true, tName, imgCount);
+  document.getElementById('noteArea').value=tEv.directorNote||'';
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+/* ════════════════════════════════════════════════
+   MODAL — shared builder
+════════════════════════════════════════════════ */
+function _buildModal(c, isT, isDirEval, tName, imgCount){
+  // Header style
+  const mhdr=document.getElementById('mhdr');
+  mhdr.className='mhdr '+(isT?'t-hdr':'d-hdr');
+  document.getElementById('mTitle').textContent=isDirEval
+    ? `${c.icon||'📋'} تقييم: ${c.title} (${c.weight})`
+    : `${c.icon||'📋'} ${c.title} (${c.weight})`;
+
+  // Evidence box — show description + level indicators
+  const evBox=document.getElementById('evBox');
+  evBox.className='ev-box '+(isT?'t-ev':'');
+  evBox.style.borderRight=`3px solid ${c.color||'var(--green-light)'}`;
+  evBox.style.background=c.bg||'var(--green-pale)';
+  document.getElementById('evTitle').textContent='📌 التفسير ومستويات الأداء';
+
+  // Description
+  const evDesc=document.getElementById('evDesc');
+  if(c.description) evDesc.innerHTML=c.description;
+  else evDesc.style.display='none';
+
+  // Level rows
+  const evLevels=document.getElementById('evLevels');
+  if(c.levels){
+    const labelColors=['','#c62828','#f57f17','#1565c0','#2e7d32','#f9a825'];
+    evLevels.innerHTML=c.levels.map(l=>`
+      <div class="level-row lvl-${l.r} ${TMP_RATING===l.r?'selected':''}" id="lvlrow${l.r}">
+        <div class="lnum">${l.r}</div>
+        <div>
+          <div class="llabel" style="color:${labelColors[l.r]}">${RATING_LABELS[l.r]}</div>
+          <div class="ltext">${l.text}</div>
+        </div>
+      </div>`).join('');
+  } else if(c.evidence){
+    evLevels.innerHTML=`<ul>${c.evidence.map(e=>`<li style="padding:4px 0;font-size:12px;color:var(--text-mid);border-bottom:1px dashed rgba(0,0,0,.06)">${e}</li>`).join('')}</ul>`;
+  } else {
+    evLevels.innerHTML='';
+  }
+
+  const isTeacherUser = (CU.role==='teacher');
+
+  // Director eval info bar
+  const dirInfo=document.getElementById('dirEvalInfo');
+  if(isDirEval){
+    dirInfo.style.display='block';
+    document.getElementById('dirEvalTeacherName').textContent=tName;
+    document.getElementById('dirEvalImgCount').textContent=imgCount;
+  } else { dirInfo.style.display='none'; }
+
+  // Teacher notice (only for teachers in self-upload mode)
+  document.getElementById('teacherNotice').style.display=(isTeacherUser&&!isDirEval)?'block':'none';
+
+  // Auto-rating box (only for director eval mode)
+  const arBox=document.getElementById('autoRatingBox');
+  if(isDirEval){
+    arBox.style.display='block';
+    _updateAutoRatingBox(TMP_RATING);
+  } else { arBox.style.display='none'; }
+
+  // Rating buttons: hidden for teachers (self-mode), shown for director
+  const rateSec=document.getElementById('rateSec');
+  if(isTeacherUser && !isDirEval){
+    rateSec.style.display='none';
+  } else {
+    rateSec.style.display='block';
+    _updateRatingBtns(isT);
+  }
+
+  // Save button style
+  const bs=document.getElementById('bSave');
+  bs.className='bsave '+(isT?'t-save':'d-save');
+  bs.textContent=isDirEval?'💾 حفظ التقييم':'💾 حفظ';
+
+  // Images
+  renderImgSlots(isT, isDirEval);
+  document.getElementById('upTitle').innerHTML=isDirEval
+    ? '🖼️ صور الشواهد المرفوعة من المعلم'
+    : '🖼️ رفع الشواهد <small style="font-weight:400;color:var(--text-light)">(حتى 5 صور)</small>';
+  document.getElementById('upHint').textContent=isDirEval
+    ? 'صور الشواهد التي رفعها المعلم — للاطلاع فقط'
+    : 'انقر على الخانة لرفع صورة · JPG / PNG';
+  document.getElementById('noteTitle').textContent=isDirEval?'📝 ملاحظات المدير':'📝 ملاحظاتي';
+}
+
+function _updateAutoRatingBox(r){
+  const stars=document.getElementById('arStars');
+  stars.innerHTML=Array.from({length:5},(_,i)=>`<span class="ar-star ${i<r?'on':''}">★</span>`).join('');
+  document.getElementById('arLabel').textContent=RATING_LABELS[r]||'—';
+  const imgCount=TMP_IMGS.filter(Boolean).length;
+  document.getElementById('arDesc').textContent=`${imgCount} صورة مرفوعة → تقدير: ${RATING_LABELS[r]} (${r}/5)`;
+}
+
+function _updateRatingBtns(isT){
+  document.querySelectorAll('.rbtn').forEach((b,i)=>{
+    b.className='rbtn'+(i+1===TMP_RATING?(isT?' t-active':' active'):'')+(isT?' t-rbtn':'');
+  });
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+  CRIT_ID=null; EVAL_TARGET=null;
+}
+document.getElementById('modal').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+function setRating(r){
+  TMP_RATING=r;
+  const isT=FILE==='teacher'||EVAL_TARGET!==null;
+  _updateRatingBtns(isT);
+  if(EVAL_TARGET!==null) _updateAutoRatingBox(r);
+  // Highlight selected level row
+  for(let i=1;i<=5;i++){
+    const row=document.getElementById('lvlrow'+i);
+    if(row) row.classList.toggle('selected', i===r);
+  }
+}
+
+function renderImgSlots(isT=false, readOnly=false){
+  const grid=document.getElementById('imgsGrid');
+  grid.innerHTML='';
+  for(let i=0;i<5;i++){
+    const has=!!TMP_IMGS[i];
+    if(readOnly){
+      grid.innerHTML+=`
+        <div class="islot ${isT?'t-slot':''} ${has?'has-img':''}" style="cursor:default">
+          ${has?`<img src="${TMP_IMGS[i]}" alt="شاهد">`
+               :`<div class="si" style="opacity:.4">—</div><div class="sn">لا توجد صورة</div>`}
+        </div>`;
+    } else {
+      grid.innerHTML+=`
+        <div class="islot ${isT?'t-slot':''} ${has?'has-img':''}" id="slot${i}" onclick="trigUp(${i})">
+          ${has?`<img src="${TMP_IMGS[i]}" alt="شاهد"><div class="irem" onclick="remImg(event,${i})">✕</div>`
+               :`<div class="si">📷</div><div class="sn">صورة ${i+1}</div>`}
+        </div>`;
+    }
+  }
+}
+function trigUp(i){ document.getElementById('fi'+i).click(); }
+function handleUpload(i,inp){
+  const file=inp.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=function(){
+      const canvas=document.createElement('canvas');
+      const MAX=800; let w=img.width,h=img.height;
+      if(w>MAX||h>MAX){ if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;} }
+      canvas.width=w; canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      TMP_IMGS[i]=canvas.toDataURL('image/jpeg',.72);
+      renderImgSlots(FILE==='teacher');
+    };
+    img.src=e.target.result; inp.value='';
+  };
+  reader.readAsDataURL(file);
+}
+function remImg(e,i){ e.stopPropagation(); TMP_IMGS[i]=''; renderImgSlots(FILE==='teacher'); }
+
+function saveCrit(){
+  if(!CU||!CRIT_ID||(!FILE&&!EVAL_TARGET)) return;
+
+  // Director evaluating a teacher
+  if(EVAL_TARGET){
+    const tData=getData(EVAL_TARGET);
+    if(!tData.teacher) tData.teacher={evaluations:{}};
+    if(!tData.teacher.evaluations) tData.teacher.evaluations={};
+    const prev=tData.teacher.evaluations[CRIT_ID]||{};
+    tData.teacher.evaluations[CRIT_ID]={
+      ...prev,
+      rating: TMP_RATING,
+      directorNote: document.getElementById('noteArea').value,
+      ratedBy: CU.email,
+      ratedAt: new Date().toISOString()
+    };
+    saveData(EVAL_TARGET, tData);
+    closeModal();
+    loadAdmin();
+    showToast('تم حفظ التقييم ✓');
+    return;
+  }
+
+  // Self upload (teacher uploads evidence, director fills own criteria)
+  const isT=FILE==='teacher';
+  const key=isT?'teacher':'director';
+  const data=getData(CU.email);
+  if(!data[key]) data[key]={evaluations:{}};
+  if(!data[key].evaluations) data[key].evaluations={};
+
+  // For teachers: never save rating (director sets it)
+  const isTeacherUser=(CU.role==='teacher');
+  const existingRating=((data[key].evaluations[CRIT_ID])||{}).rating||0;
+
+  data[key].evaluations[CRIT_ID]={
+    rating: isTeacherUser ? existingRating : TMP_RATING,
+    images:[...TMP_IMGS],
+    notes: document.getElementById('noteArea').value,
+    updatedAt: new Date().toISOString()
+  };
+  saveData(CU.email,data);
+  closeModal();
+  renderDash();
+  showToast('تم الحفظ بنجاح ✓');
+}
+
+/* ════════════════════════════════════════════════
+   ADMIN
+════════════════════════════════════════════════ */
+function loadAdmin(){
+  const users=getUsers();
+  const teachers=Object.keys(users).filter(e=>users[e].role==='teacher'||users[e].role==='director');
+  document.getElementById('tCount').textContent=teachers.length+' معلم';
+  fillTeachersTable(teachers, users);
+}
+
+function fillTeachersTable(emails, users){
+  const tbody=document.getElementById('tBody');
+  tbody.innerHTML='';
+  if(emails.length===0){
+    tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--text-light);font-size:13px">
+      لا يوجد معلمون مسجلون بعد<br><small>عند تسجيل أي معلم سيظهر هنا تلقائياً</small>
+    </td></tr>`;
+    return;
+  }
+  emails.forEach((email,idx)=>{
+    const u=users[email];
+    const data=getData(email);
+    const evals=(data.teacher&&data.teacher.evaluations)||{};
+    const totalImgs=TEACHER_CRITERIA.reduce((s,c)=>s+(evals[c.id]?(evals[c.id].images||[]).filter(Boolean).length:0),0);
+    const rated=TEACHER_CRITERIA.filter(c=>evals[c.id]&&evals[c.id].rating>0).length;
+    const pct=Math.round((rated/TEACHER_CRITERIA.length)*100);
+    tbody.innerHTML+=`<tr>
+      <td style="font-weight:700;color:var(--text-light)">${idx+1}</td>
+      <td>
+        <strong style="color:var(--text-dark)">${u.name}</strong><br>
+        <small style="color:var(--text-light)">${email}</small>
+      </td>
+      <td>${u.spec||'—'}</td>
+      <td>${u.level||'—'}</td>
+      <td>
+        <span style="background:var(--blue-soft);color:var(--blue-main);padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700">
+          🖼️ ${totalImgs} صورة
+        </span>
+      </td>
+      <td>${rated}/${TEACHER_CRITERIA.length}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:7px">
+          <div class="pbw"><div class="pbf blue-f" style="width:${pct}%"></div></div>
+          <span style="font-size:12px;font-weight:700;color:var(--blue-main)">${pct}%</span>
+        </div>
+      </td>
+      <td style="display:flex;flex-direction:column;gap:4px">
+        <button class="vbtn" onclick="viewReport('${email}','teacher')">📄 تقرير</button>
+        <button class="vbtn" style="background:var(--gold-light);color:var(--green-dark);border-color:var(--gold)" onclick="openTeacherEval('${email}')">⭐ تقييم</button>
+      </td>
+    </tr>`;
+  });
+}
+
+/* ════════════════════════════════════════════════
+   TEACHER EVALUATION PAGE (director opens per-teacher)
+════════════════════════════════════════════════ */
+let EVAL_TEACHER_EMAIL = null;
+
+function openTeacherEval(email){
+  EVAL_TEACHER_EMAIL = email;
+  const users=getUsers();
+  const u=users[email];
+  const data=getData(email);
+  const evals=(data.teacher&&data.teacher.evaluations)||{};
+
+  // Build evaluation grid page
+  let html=`
+    <div class="dash" style="max-width:1100px;margin:0 auto">
+      <div class="pbar">
+        <div class="pavatar t-av">👨‍🏫</div>
+        <div class="pinfo">
+          <h3>تقييم: ${u.name}</h3>
+          <div class="pmeta">
+            <span>🎓 ${u.spec||'—'}</span>
+            <span>📚 ${u.level||'—'}</span>
+          </div>
+        </div>
+        <div style="margin-right:auto">
+          <button class="nbtn" onclick="showAdminPage()">← العودة للوحة المتابعة</button>
+        </div>
+      </div>
+      <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:14px 18px;margin-bottom:18px;font-size:13px;color:#795548;line-height:1.7">
+        ⭐ <strong>طريقة التقييم:</strong> التقدير يُحسب تلقائياً حسب عدد الصور المرفوعة من المعلم
+        &nbsp;|&nbsp; 0 صور = مرضي(1) &nbsp;·&nbsp; 1 صورة = مقبول(2) &nbsp;·&nbsp; 2 صور = جيد(3) &nbsp;·&nbsp; 3–4 صور = جيد جداً(4) &nbsp;·&nbsp; 5 صور = ممتاز(5)
+        &nbsp;|&nbsp; يمكنك التعديل اليدوي عند الحاجة
+      </div>
+      <div class="crit-grid">`;
+
+  TEACHER_CRITERIA.forEach((c,i)=>{
+    const ev=evals[c.id]||{};
+    const imgs=(ev.images||[]).filter(Boolean);
+    const autoR=calcRating(imgs.length);
+    const r=ev.rating||0;
+    const isRated=r>0;
+    const stars=Array.from({length:5},(_,j)=>`<span class="star ${j<r?'on':''}">★</span>`).join('');
+    const thumbs=imgs.slice(0,3).map(s=>`<img class="cthumb" src="${s}">`).join('');
+    html+=`
+      <div class="ccard ${isRated?'done-t':''}" style="border-top:3px solid ${c.color||'var(--blue-main)'}; cursor:pointer" onclick="evalTeacherCrit('${email}','${c.id}')">
+        <div class="ccard-hdr teacher-hdr" style="background:${c.bg||'var(--blue-soft)'}">
+          <div class="cnum t-num" style="${c.color?'background:'+c.color:''}">${c.icon||i+1}</div>
+          <div class="ctitle">${c.title}</div>
+          <div class="cwt">${c.weight}</div>
+        </div>
+        <div class="ccard-body">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+            <div class="stars">${stars}</div>
+            <span style="font-size:11px;color:var(--text-light)">${isRated?RATING_LABELS[r]:''}</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <span class="cbadge ${isRated?'done-blue':'pend'}">${isRated?'✅ تم التقييم':'⏳ لم يُقيَّم'}</span>
+            <span class="imgbadge">🖼️ ${imgs.length}/5 صور → مقترح: <strong>${RATING_LABELS[autoR]}</strong></span>
+          </div>
+          ${thumbs?`<div class="c-imgs">${thumbs}</div>`:''}
+        </div>
+      </div>`;
+  });
+
+  html+=`</div></div>`;
+
+  // Show in admin page area
+  document.getElementById('pgAdmin').innerHTML=`<div id="teacherEvalWrap">${html}</div>`;
+}
+
+function restoreAdminPage(){
+  document.getElementById('pgAdmin').innerHTML=`
+    <div class="admin-wrap">
+      <div class="sec-ttl" style="justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <span>لوحة المتابعة — مدرسة عبيدة بن الحارث المتوسطة</span>
+        <button onclick="loadAdmin()" style="padding:6px 14px;background:var(--green-soft);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-family:Cairo,sans-serif;font-size:12px;color:var(--green-dark);font-weight:600">🔄 تحديث القائمة</button>
+      </div>
+      <div class="at-card">
+        <div class="at-hdr teacher-th" style="display:flex;align-items:center;justify-content:space-between">
+          <h3>👨‍🏫 متابعة أداء المعلمين</h3>
+          <span id="tCount" style="font-size:12px;opacity:.85">0 معلم</span>
+        </div>
+        <div style="overflow-x:auto"><table><thead><tr>
+          <th>#</th><th>الاسم</th><th>التخصص</th><th>الصف</th>
+          <th>الصور المرفوعة</th><th>المعايير المُقيَّمة</th><th>نسبة التقييم</th><th>الإجراءات</th>
+        </tr></thead><tbody id="tBody"></tbody></table></div>
+      </div>
+    </div>`;
+  loadAdmin();
+}
+
+function viewReport(email,key){
+  const users=getUsers();
+  const u=users[email];
+  const data=getData(email);
+  const evals=(data[key]&&data[key].evaluations)||{};
+  const criteria=key==='teacher'?TEACHER_CRITERIA:DIRECTOR_CRITERIA;
+
+  // Stats
+  const rated=criteria.filter(c=>evals[c.id]&&evals[c.id].rating>0).length;
+  const totalImgs=criteria.reduce((s,c)=>s+(evals[c.id]?(evals[c.id].images||[]).filter(Boolean).length:0),0);
+  const pct=Math.round((rated/criteria.length)*100);
+  const totalScore=criteria.reduce((s,c)=>{
+    const r=evals[c.id]&&evals[c.id].rating||0;
+    const w=parseFloat(c.weight)||0;
+    return s+(r/5)*w;
+  },0).toFixed(1);
+
+  // Overall label
+  const overallR = pct===0?0 : Math.round(criteria.reduce((s,c)=>s+(evals[c.id]&&evals[c.id].rating||0),0)/criteria.length);
+  const overallLabel=RATING_LABELS[overallR]||'—';
+  const overallColor=overallR===5?'#1b5e20':overallR===4?'#2e7d32':overallR===3?'#1565c0':overallR===2?'#e65100':'#b71c1c';
+  const overallBg=overallR===5?'#e8f5e9':overallR===4?'#f1f8e9':overallR===3?'#e3f2fd':overallR===2?'#fff3e0':'#ffebee';
+
+  // Criteria rows with images
+  const rows = criteria.map((c,i)=>{
+    const ev=evals[c.id]||{};
+    const imgs=(ev.images||[]).filter(Boolean);
+    const r=ev.rating||0;
+    const rLabel=RATING_LABELS[r]||'لم يُقيَّم';
+    const rColor=r===5?'#1b5e20':r===4?'#2e7d32':r===3?'#1565c0':r===2?'#e65100':r===1?'#b71c1c':'#999';
+    const rBg=r===5?'#e8f5e9':r===4?'#f1f8e9':r===3?'#e3f2fd':r===2?'#fff3e0':r===1?'#ffebee':'#f5f5f5';
+    const stars='★'.repeat(r)+'☆'.repeat(5-r);
+    const imgHtml=imgs.length?`<div class="img-row">${imgs.map(s=>`<img class="ev-img" src="${s}">`).join('')}</div>`:'<span style="color:#bbb;font-size:11px">لا توجد صور مرفوعة</span>';
+    const note=ev.directorNote||ev.notes||'';
+    return `
+      <div class="crit-card" style="border-right:4px solid ${c.color||'#006C35'}">
+        <div class="crit-top" style="background:${c.bg||'#e8f5e9'}">
+          <div class="crit-num" style="background:${c.color||'#006C35'}">${c.icon||i+1}</div>
+          <div class="crit-info">
+            <div class="crit-title">${c.title}</div>
+            <div class="crit-weight">الوزن: ${c.weight}</div>
+          </div>
+          <div class="crit-badge" style="background:${rBg};color:${rColor};border:1.5px solid ${rColor}">
+            <div class="crit-stars" style="color:${rColor}">${stars}</div>
+            <div class="crit-label">${rLabel}</div>
+            ${r?`<div class="crit-score">${r}/5</div>`:''}
+          </div>
+        </div>
+        <div class="crit-body">
+          <div class="imgs-label">📷 الشواهد المرفوعة (${imgs.length} صورة)</div>
+          ${imgHtml}
+          ${note?`<div class="note-box">📝 ملاحظة المدير: ${note}</div>`:''}
+        </div>
+      </div>`;
+  }).join('');
+
+  const win=window.open('','_blank');
+  win.document.write(`<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>تقرير أداء — ${u.name}</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Cairo',sans-serif;direction:rtl;color:#222;background:#f0f4f8;font-size:13px}
+.page{max-width:900px;margin:0 auto;background:#fff;min-height:100vh}
+
+/* ── HEADER ── */
+.report-header{background:linear-gradient(135deg,#006C35 0%,#00471b 60%,#1b5e20 100%);color:#fff;padding:28px 32px 20px;position:relative;overflow:hidden}
+.report-header::before{content:'';position:absolute;top:-40px;left:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.05)}
+.report-header::after{content:'';position:absolute;bottom:-60px;right:60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.header-top{display:flex;align-items:center;gap:16px;margin-bottom:16px;position:relative;z-index:1}
+.ministry-logo{width:60px;height:60px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:2px solid rgba(255,255,255,.3)}
+.header-titles{flex:1}
+.header-titles h1{font-size:20px;font-weight:900;margin-bottom:3px}
+.header-titles h2{font-size:13px;font-weight:600;opacity:.85}
+.header-titles h3{font-size:12px;opacity:.7;margin-top:2px}
+.report-type-badge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;white-space:nowrap}
+
+/* ── TEACHER INFO BAR ── */
+.teacher-bar{background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border-bottom:3px solid #006C35;padding:16px 32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.teacher-avatar{width:52px;height:52px;background:linear-gradient(135deg,#006C35,#00897b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.teacher-details{flex:1}
+.teacher-name{font-size:17px;font-weight:900;color:#1b5e20;margin-bottom:4px}
+.teacher-meta{display:flex;flex-wrap:wrap;gap:12px}
+.meta-chip{background:#fff;border:1px solid #c8e6c9;border-radius:12px;padding:3px 10px;font-size:11.5px;color:#2e7d32;font-weight:600}
+
+/* ── MISSION & GOALS ── */
+.mission-section{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:2px solid #e0e0e0}
+.mission-box,.goals-box{padding:18px 24px}
+.mission-box{background:linear-gradient(135deg,#e3f2fd,#f8fbff);border-left:1px solid #e0e0e0}
+.goals-box{background:linear-gradient(135deg,#fff8e1,#fffde7)}
+.section-icon{font-size:22px;margin-bottom:6px}
+.section-title{font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.mission-text{font-size:12px;color:#333;line-height:1.8}
+.goals-list{list-style:none;padding:0}
+.goals-list li{font-size:11.5px;color:#333;padding:3px 0;border-bottom:1px dashed #ffe082;display:flex;align-items:center;gap:6px}
+.goals-list li:last-child{border:none}
+.goals-list li::before{content:'✦';color:#f9a825;font-size:10px;flex-shrink:0}
+
+/* ── OVERALL SCORE ── */
+.score-banner{background:linear-gradient(135deg,#006C35,#00897b);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.score-stat{text-align:center;color:#fff}
+.score-stat .sv{font-size:28px;font-weight:900;line-height:1}
+.score-stat .sl{font-size:10px;opacity:.8;margin-top:3px}
+.score-divider{width:1px;height:40px;background:rgba(255,255,255,.3)}
+.overall-badge{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.4);border-radius:16px;padding:8px 20px;text-align:center}
+.overall-badge .ob-label{font-size:11px;color:rgba(255,255,255,.8);margin-bottom:4px}
+.overall-badge .ob-val{font-size:18px;font-weight:900;color:#fff}
+.progress-wrap{flex:1;min-width:200px}
+.progress-label{color:rgba(255,255,255,.8);font-size:11px;margin-bottom:6px}
+.progress-bar{background:rgba(255,255,255,.2);border-radius:20px;height:10px;overflow:hidden}
+.progress-fill{background:linear-gradient(90deg,#a5d6a7,#fff);height:100%;border-radius:20px;transition:width .3s}
+
+/* ── CRITERIA CARDS ── */
+.criteria-section{padding:20px 24px}
+.criteria-title{font-size:13px;font-weight:700;color:#006C35;margin-bottom:14px;display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:2px solid #e8f5e9}
+.crit-card{border-radius:10px;border:1px solid #e0e0e0;margin-bottom:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.crit-top{display:flex;align-items:center;gap:12px;padding:10px 14px}
+.crit-num{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;color:#fff;font-weight:700}
+.crit-info{flex:1}
+.crit-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
+.crit-weight{font-size:10.5px;color:#888}
+.crit-badge{border-radius:10px;padding:6px 12px;text-align:center;min-width:80px;flex-shrink:0}
+.crit-stars{font-size:13px;letter-spacing:1px;margin-bottom:2px}
+.crit-label{font-size:11px;font-weight:700}
+.crit-score{font-size:10px;opacity:.8;margin-top:1px}
+.crit-body{padding:10px 14px;background:#fafafa;border-top:1px solid #f0f0f0}
+.imgs-label{font-size:11px;color:#888;margin-bottom:6px;font-weight:600}
+.img-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.ev-img{width:70px;height:70px;object-fit:cover;border-radius:7px;border:1.5px solid #ddd;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.note-box{margin-top:8px;background:#fffde7;border:1px solid #ffe082;border-radius:7px;padding:7px 10px;font-size:11.5px;color:#555;line-height:1.6}
+
+/* ── SIGNATURE ── */
+.signature-section{padding:20px 32px;background:#f8f9fa;border-top:2px solid #e0e0e0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:10px}
+.sig-box{text-align:center;padding:14px}
+.sig-title{font-size:11px;font-weight:700;color:#555;margin-bottom:30px}
+.sig-line{border-top:1.5px solid #333;padding-top:6px;font-size:10px;color:#888}
+
+/* ── FOOTER ── */
+.report-footer{background:#1b5e20;color:rgba(255,255,255,.7);text-align:center;padding:10px;font-size:10.5px}
+
+/* ── PRINT BUTTON ── */
+.print-btn{position:fixed;bottom:24px;left:24px;background:#006C35;color:#fff;border:none;border-radius:30px;padding:12px 24px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,108,53,.4);z-index:999;display:flex;align-items:center;gap:8px}
+.print-btn:hover{background:#00471b}
+
+@media print{
+  body{background:#fff}
+  .print-btn{display:none!important}
+  .page{max-width:100%;box-shadow:none}
+  .crit-card{break-inside:avoid;page-break-inside:avoid}
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+  color-adjust:exact;
+}
+</style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">🖨️ طباعة التقرير</button>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="report-header">
+    <div class="header-top">
+      <div class="ministry-logo">🎓</div>
+      <div class="header-titles">
+        <h1>المملكة العربية السعودية — وزارة التعليم</h1>
+        <h2>الإدارة العامة للتعليم بمحافظة جدة</h2>
+        <h3>مدرسة عبيدة بن الحارث المتوسطة · العام الدراسي 1447 هـ</h3>
+      </div>
+      <div class="report-type-badge">📋 تقرير أداء المعلم</div>
+    </div>
+  </div>
+
+  <!-- TEACHER INFO -->
+  <div class="teacher-bar">
+    <div class="teacher-avatar">👨‍🏫</div>
+    <div class="teacher-details">
+      <div class="teacher-name">${u.name}</div>
+      <div class="teacher-meta">
+        <span class="meta-chip">🎓 ${u.spec||'—'}</span>
+        <span class="meta-chip">📚 ${u.level||'—'}</span>
+        <span class="meta-chip">📅 ${new Date().toLocaleDateString('ar-SA')}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISSION & GOALS -->
+  <div class="mission-section">
+    <div class="mission-box">
+      <div class="section-icon">🏫</div>
+      <div class="section-title">رسالة المدرسة</div>
+      <div class="mission-text">
+        مدرسة عبيدة بن الحارث المتوسطة تسعى إلى بناء جيل واعٍ متعلم متميز، يتسلح بالعلم والإيمان والقيم الوطنية الأصيلة، في بيئة تعليمية آمنة ومحفزة تنمّي إبداع الطالب وتؤهله لمواكبة متطلبات المستقبل.
+      </div>
+    </div>
+    <div class="goals-box">
+      <div class="section-icon">🎯</div>
+      <div class="section-title">أهداف تقييم الأداء</div>
+      <ul class="goals-list">
+        <li>تحسين جودة التعليم وتطوير الأداء المهني للمعلم</li>
+        <li>الكشف عن نقاط القوة وتعزيزها ومعالجة جوانب التطوير</li>
+        <li>توفير تغذية راجعة بناءة تدعم النمو المهني المستمر</li>
+        <li>قياس مدى تحقق مخرجات التعلم وفق معايير الوزارة</li>
+        <li>تحقيق الشفافية والموضوعية في تقييم أداء المعلمين</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- OVERALL SCORE -->
+  <div class="score-banner">
+    <div class="score-stat"><div class="sv">${rated}</div><div class="sl">معايير مُقيَّمة</div></div>
+    <div class="score-divider"></div>
+    <div class="score-stat"><div class="sv">${criteria.length}</div><div class="sl">إجمالي المعايير</div></div>
+    <div class="score-divider"></div>
+    <div class="score-stat"><div class="sv">${totalImgs}</div><div class="sl">صورة مرفوعة</div></div>
+    <div class="score-divider"></div>
+    <div class="progress-wrap">
+      <div class="progress-label">نسبة اكتمال التقييم: ${pct}%</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="score-divider"></div>
+    <div class="overall-badge">
+      <div class="ob-label">التقدير العام</div>
+      <div class="ob-val">${overallLabel}</div>
+    </div>
+  </div>
+
+  <!-- CRITERIA -->
+  <div class="criteria-section">
+    <div class="criteria-title">⭐ تفاصيل تقييم المعايير والشواهد</div>
+    ${rows}
+  </div>
+
+  <!-- SIGNATURES -->
+  <div class="signature-section">
+    <div class="sig-box">
+      <div class="sig-title">توقيع المعلم / المعلمة</div>
+      <div class="sig-line">الاسم: ${u.name}</div>
+    </div>
+    <div class="sig-box">
+      <div class="sig-title">توقيع المشرف التربوي</div>
+      <div class="sig-line">الاسم: ........................</div>
+    </div>
+    <div class="sig-box">
+      <div class="sig-title">توقيع مدير المدرسة</div>
+      <div class="sig-line">الاسم: ........................</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="report-footer">
+    مدرسة عبيدة بن الحارث المتوسطة · الإدارة العامة للتعليم بمحافظة جدة · وزارة التعليم · 1447 هـ
+  </div>
+</div>
+</body></html>`);
+}
+
+/* ════════════════════════════════════════════════
+   TOAST
+════════════════════════════════════════════════ */
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+/* ════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════ */
+window.addEventListener('load',()=>{
+  updateHeader();
+  const sess=sessionStorage.getItem('ub_sess');
+  if(sess){
+    try{
+      CU=JSON.parse(sess); updateHeader();
+      if(CU.role==='admin'){ showAdminPage(); }
+      else{ showPage('pgHome'); document.getElementById('homeGreet').textContent='مرحباً، '+CU.name+' 👋'; renderHomeCards(); }
+    }catch{}
+  }
+});
+window.addEventListener('beforeunload',()=>{ if(CU) sessionStorage.setItem('ub_sess',JSON.stringify(CU)); });
+</script>
+</body>
+</html>
