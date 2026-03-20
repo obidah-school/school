@@ -56,6 +56,7 @@ html,body{font-family:'Tajawal',sans-serif;direction:rtl;background:#f0f4f8;min-
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes badgePop{0%{transform:scale(0) rotate(-10deg)}70%{transform:scale(1.2) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .badge-pop{animation:badgePop .5s ease forwards}
 .fade-in{animation:fadeIn .4s ease forwards}
 .timer-warning{animation:pulse .8s ease infinite}
@@ -1555,7 +1556,79 @@ function AIImportScreen({apiKey,onSaveExam,onBack}){
   const [error,setError]=useState("");
   const [progress,setProgress]=useState("");
   const [pastedText,setPastedText]=useState("");
+  const [imgPreview,setImgPreview]=useState(null);
+  const [imgBase64,setImgBase64]=useState(null);
+  const [imgMime,setImgMime]=useState(null);
   const fileRef=useRef(null);
+  const imgInputRef=useRef(null);
+
+  const handleDroppedImage=(file)=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      setImgPreview(e.target.result);
+      setImgBase64(e.target.result.split(",")[1]);
+      setImgMime(file.type);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const callClaudeAPIWithImage=async()=>{
+    if(!imgBase64) return;
+    setError("");
+    setStep("extracting");
+    setProgress("جارٍ تحليل الصورة...");
+    try{
+      const res=await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",
+        headers:{"Content-Type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+        body:JSON.stringify({
+          model:"claude-opus-4-5",
+          max_tokens:4000,
+          messages:[{
+            role:"user",
+            content:[
+              {type:"image",source:{type:"base64",media_type:imgMime,data:imgBase64}},
+              {type:"text",text:`استخرج من هذه الصورة كل الأسئلة والمعايير الدراسية ونظّمها بصيغة JSON بالشكل التالي بالضبط:
+{
+  "title": "عنوان الاختبار أو المادة",
+  "standards": [
+    {
+      "name": "اسم المعيار أو الموضوع",
+      "questions": [
+        {
+          "text": "نص السؤال",
+          "options": ["الخيار أ","الخيار ب","الخيار ج","الخيار د"],
+          "correct": 0,
+          "grade": 2,
+          "feedback": ""
+        }
+      ]
+    }
+  ]
+}
+القواعد:
+- correct هو رقم من 0 إلى 3 يمثل الإجابة الصحيحة
+- إذا لم تتضح الإجابة ضع 0
+- إذا لم يوجد خيارات اخترع 4 خيارات منطقية
+- اجمع الأسئلة المتشابهة تحت نفس المعيار
+- أرجع JSON فقط بدون أي نص إضافي`}
+            ]
+          }]
+        })
+      });
+      const data=await res.json();
+      if(data.error) throw new Error(data.error.message);
+      const raw=(data.content||[]).map(b=>b.text||"").join("");
+      const jsonStr=raw.replace(/```json|```/g,"").trim();
+      const parsed=JSON.parse(jsonStr);
+      setExamTitle(parsed.title||"اختبار مستورد");
+      setStandards((parsed.standards||[]).map(s=>({...s,id:uid(),questions:(s.questions||[]).map(q=>({...q,id:uid(),grade:Number(q.grade)||2,correct:Number(q.correct)||0,feedback:q.feedback||""}))})));
+      setStep("review");
+    }catch(e){
+      setError("حدث خطأ: "+e.message);
+      setStep("upload");
+    }
+  };
 
   const callClaudeAPI=async(text)=>{
     if(!apiKey){setError("أدخل مفتاح Claude AI أولاً في الإعدادات");return;}
@@ -1710,6 +1783,64 @@ ${text.slice(0,6000)}
               🤖 تحليل بالذكاء الاصطناعي
             </button>
           </div>
+          {/* Method 3: Image drop */}
+          <div className="card" style={{marginBottom:14,border:"2px solid #7c3aed",background:"#faf5ff",padding:"16px 18px"}}>
+            <p style={{fontWeight:800,color:"#7c3aed",fontSize:14,marginBottom:4}}>🖼️ الطريقة ٣: إفلات صورة مقصوصة من PDF</p>
+            <p style={{fontSize:12,color:"#94a3b8",marginBottom:12}}>اقص أي جزء من ملف PDF وأفلته هنا — سيتم تحليله بالذكاء الاصطناعي</p>
+            <div
+              onDragOver={e=>{e.preventDefault();e.currentTarget.style.background="#ede9fe";e.currentTarget.style.borderColor="#6d28d9";}}
+              onDragLeave={e=>{e.currentTarget.style.background=imgPreview?"#f5f3ff":"#faf5ff";e.currentTarget.style.borderColor="#c4b5fd";}}
+              onDrop={e=>{
+                e.preventDefault();
+                e.currentTarget.style.background=imgPreview?"#f5f3ff":"#faf5ff";
+                e.currentTarget.style.borderColor="#c4b5fd";
+                const file=e.dataTransfer.files[0];
+                if(file&&file.type.startsWith("image/")) handleDroppedImage(file);
+              }}
+              onClick={()=>imgInputRef.current?.click()}
+              style={{
+                border:"2.5px dashed #c4b5fd",
+                borderRadius:12,
+                background:imgPreview?"#f5f3ff":"#fdf8ff",
+                minHeight:imgPreview?0:120,
+                display:"flex",
+                flexDirection:"column",
+                alignItems:"center",
+                justifyContent:"center",
+                gap:8,
+                cursor:"pointer",
+                transition:"all .2s",
+                padding:imgPreview?8:16,
+                position:"relative",
+                overflow:"hidden"
+              }}>
+              <input ref={imgInputRef} type="file" accept="image/*" style={{display:"none"}}
+                onChange={e=>{if(e.target.files[0])handleDroppedImage(e.target.files[0]);}}/>
+              {imgPreview ? (
+                <div style={{position:"relative",width:"100%"}}>
+                  <img src={imgPreview} style={{width:"100%",maxHeight:260,objectFit:"contain",borderRadius:8,display:"block"}} alt="preview"/>
+                  <div style={{position:"absolute",inset:0,background:"rgba(109,40,217,.0)",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",opacity:0,transition:"opacity .2s"}}
+                    onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=0}
+                    style={{position:"absolute",inset:0,background:"rgba(109,40,217,.55)",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <p style={{color:"white",fontWeight:800,fontSize:14}}>🔄 انقر لاستبدال</p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <span style={{fontSize:42,animation:"float 3s ease-in-out infinite"}}>🖼️</span>
+                  <p style={{fontWeight:800,color:"#7c3aed",fontSize:14}}>أفلت الصورة هنا أو انقر للاختيار</p>
+                  <p style={{fontSize:12,color:"#94a3b8"}}>PNG • JPG • WEBP • صورة مقصوصة</p>
+                </>
+              )}
+            </div>
+            {imgPreview&&(
+              <button className="btn btn-blue" style={{width:"100%",marginTop:12,padding:"11px",fontSize:15,fontWeight:800,background:"linear-gradient(135deg,#7c3aed,#6d28d9)",border:"none"}}
+                onClick={()=>callClaudeAPIWithImage()}>
+                🤖 تحليل الصورة بالذكاء الاصطناعي
+              </button>
+            )}
+          </div>
+
           {error&&<div className="card" style={{background:"#fef2f2",border:"2px solid #fca5a5",padding:"12px 16px",marginBottom:10}}><p style={{color:"#dc2626",fontWeight:700}}>{error}</p></div>}
           <div className="card" style={{padding:"14px 18px",background:"#f5f3ff",border:"2px solid #e9d5ff"}}>
             <p style={{fontWeight:800,color:"#7c3aed",marginBottom:8,fontSize:14}}>📋 ماذا يفعل الاستيراد الذكي؟</p>
