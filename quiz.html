@@ -1670,6 +1670,7 @@ function AIImportScreen({apiKey,onSaveExam,onBack}){
   const [progress,setProgress]=useState("");
   const [pastedText,setPastedText]=useState("");
   const [imgSlots,setImgSlots]=useState([null,null,null]);
+  const [activeSlot,setActiveSlot]=useState(null);
   const fileRef=useRef(null);
   const imgInputRef=useRef(null);
 
@@ -1692,6 +1693,23 @@ function AIImportScreen({apiKey,onSaveExam,onBack}){
 
   // keep old single handler for backward compat
   const handleDroppedImage=(file)=>handleDroppedImageSlot(0,file);
+
+  // Global paste listener for active slot
+  useEffect(()=>{
+    const onPaste=(e)=>{
+      if(activeSlot===null) return;
+      const items=e.clipboardData?.items||[];
+      for(const item of items){
+        if(item.type.startsWith("image/")){
+          const file=item.getAsFile();
+          if(file) handleDroppedImageSlot(activeSlot,file);
+          break;
+        }
+      }
+    };
+    document.addEventListener("paste",onPaste);
+    return ()=>document.removeEventListener("paste",onPaste);
+  },[activeSlot,imgSlots]);
 
   // ── helper: crop a region from a dataURL using Canvas ──
   const cropImage=(dataUrl,crop)=>new Promise(resolve=>{
@@ -1979,19 +1997,23 @@ ${text.slice(0,6000)}
                     </p>
                     <div
                       onDragOver={e=>{e.preventDefault();e.currentTarget.style.background="#ede9fe";e.currentTarget.style.borderColor="#6d28d9";}}
-                      onDragLeave={e=>{e.currentTarget.style.background=slot?"#f0ebff":"#fdf8ff";e.currentTarget.style.borderColor=slot?"#7c3aed":"#c4b5fd";}}
+                      onDragLeave={e=>{e.currentTarget.style.background=slot?"#f0ebff":activeSlot===idx?"#eff6ff":"#fdf8ff";e.currentTarget.style.borderColor=slot?"#7c3aed":activeSlot===idx?"#2563eb":"#c4b5fd";}}
                       onDrop={e=>{
                         e.preventDefault();
                         e.currentTarget.style.background=slot?"#f0ebff":"#fdf8ff";
                         e.currentTarget.style.borderColor=slot?"#7c3aed":"#c4b5fd";
                         const file=e.dataTransfer.files[0];
-                        if(file&&file.type.startsWith("image/")) handleDroppedImageSlot(idx,file);
+                        if(file&&file.type.startsWith("image/")){handleDroppedImageSlot(idx,file);setActiveSlot(null);}
                       }}
-                      onClick={()=>document.getElementById(inputId)?.click()}
+                      onClick={e=>{
+                        if(slot){document.getElementById(inputId)?.click();return;}
+                        if(activeSlot===idx){setActiveSlot(null);}
+                        else{setActiveSlot(idx);}
+                      }}
                       style={{
-                        border:`2px dashed ${slot?"#7c3aed":"#c4b5fd"}`,
+                        border:`2px ${activeSlot===idx?"solid":"dashed"} ${slot?"#7c3aed":activeSlot===idx?"#2563eb":"#c4b5fd"}`,
                         borderRadius:10,
-                        background:slot?"#f0ebff":"#fdf8ff",
+                        background:slot?"#f0ebff":activeSlot===idx?"#eff6ff":"#fdf8ff",
                         minHeight:slot?0:100,
                         display:"flex",
                         flexDirection:"column",
@@ -2002,10 +2024,11 @@ ${text.slice(0,6000)}
                         transition:"all .2s",
                         padding:slot?6:12,
                         position:"relative",
-                        overflow:"hidden"
+                        overflow:"hidden",
+                        boxShadow:activeSlot===idx?"0 0 0 3px rgba(37,99,235,.2)":"none"
                       }}>
                       <input id={inputId} type="file" accept="image/*" style={{display:"none"}}
-                        onChange={e=>{if(e.target.files[0])handleDroppedImageSlot(idx,e.target.files[0]);}}/>
+                        onChange={e=>{if(e.target.files[0]){handleDroppedImageSlot(idx,e.target.files[0]);setActiveSlot(null);}}}/>
                       {slot ? (
                         <div style={{position:"relative",width:"100%"}}>
                           <img src={slot.preview} style={{width:"100%",maxHeight:140,objectFit:"contain",borderRadius:7,display:"block"}} alt={`slot${idx}`}/>
@@ -2023,9 +2046,23 @@ ${text.slice(0,6000)}
                         </div>
                       ):(
                         <>
-                          <span style={{fontSize:30,animation:`float ${2.5+idx*0.3}s ease-in-out infinite`}}>🖼️</span>
-                          <p style={{fontSize:11,fontWeight:700,color:"#7c3aed",textAlign:"center"}}>أفلت أو انقر</p>
-                          <p style={{fontSize:10,color:"#94a3b8",textAlign:"center"}}>PNG • JPG • WEBP</p>
+                          <span style={{fontSize:30,animation:activeSlot===idx?"none":`float ${2.5+idx*0.3}s ease-in-out infinite`}}>
+                            {activeSlot===idx?"📋":"🖼️"}
+                          </span>
+                          {activeSlot===idx?(
+                            <>
+                              <p style={{fontSize:11,fontWeight:800,color:"#2563eb",textAlign:"center",lineHeight:1.5}}>
+                                ✅ جاهز للصق<br/>اضغط Ctrl+V
+                              </p>
+                              <p style={{fontSize:10,color:"#64748b",textAlign:"center"}}>أو أفلت الصورة هنا</p>
+                              <div style={{width:8,height:8,borderRadius:"50%",background:"#2563eb",animation:"pulse .8s infinite",marginTop:2}}/>
+                            </>
+                          ):(
+                            <>
+                              <p style={{fontSize:11,fontWeight:700,color:"#7c3aed",textAlign:"center"}}>انقر للصق أو أفلت</p>
+                              <p style={{fontSize:10,color:"#94a3b8",textAlign:"center"}}>PNG • JPG • WEBP</p>
+                            </>
+                          )}
                         </>
                       )}
                     </div>
