@@ -1557,6 +1557,108 @@ function AllResultsScreen({results,exams,onClearResults,onBack}){
     </div>
   );
 }
+
+/* ─── PASTE IMAGE BOX (per-question) ─── */
+function PasteImageBox({image, onChange}){
+  const [active,setActive]=useState(false);
+  const boxRef=useRef(null);
+
+  // Handle paste from clipboard
+  useEffect(()=>{
+    const onPaste=(e)=>{
+      if(!active) return;
+      const items=e.clipboardData?.items||[];
+      for(const item of items){
+        if(item.type.startsWith("image/")){
+          const file=item.getAsFile();
+          if(file){
+            const reader=new FileReader();
+            reader.onload=ev=>onChange(ev.target.result);
+            reader.readAsDataURL(file);
+          }
+        }
+      }
+    };
+    document.addEventListener("paste",onPaste);
+    return ()=>document.removeEventListener("paste",onPaste);
+  },[active]);
+
+  // Handle drag & drop
+  const onDragOver=(e)=>{e.preventDefault();};
+  const onDrop=(e)=>{
+    e.preventDefault();
+    const file=e.dataTransfer.files[0];
+    if(file&&file.type.startsWith("image/")){
+      const reader=new FileReader();
+      reader.onload=ev=>onChange(ev.target.result);
+      reader.readAsDataURL(file);
+    }
+    // also handle dragged image elements (e.g. from browser)
+    const url=e.dataTransfer.getData("text/html");
+    if(!file && url){
+      const m=url.match(/src="([^"]+)"/);
+      if(m) onChange(m[1]);
+    }
+  };
+
+  return (
+    <div style={{marginTop:10}}>
+      {image?(
+        <div style={{position:"relative"}}>
+          <img src={image} alt="صورة السؤال" style={{width:"100%",maxHeight:200,objectFit:"contain",borderRadius:10,border:"2px solid #7c3aed",background:"#f5f3ff",display:"block"}}/>
+          <div style={{display:"flex",gap:6,marginTop:6}}>
+            <button
+              onClick={()=>{setActive(true);setTimeout(()=>boxRef.current?.focus(),50);}}
+              style={{flex:1,background:"#eff6ff",color:"#1d4ed8",border:"2px solid #bfdbfe",borderRadius:8,padding:"6px 10px",fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:"Tajawal"}}>
+              🔄 استبدال (Ctrl+V)
+            </button>
+            <button
+              onClick={()=>onChange(null)}
+              style={{background:"#fef2f2",color:"#ef4444",border:"2px solid #fca5a5",borderRadius:8,padding:"6px 12px",fontSize:12,fontWeight:700,cursor:"pointer",fontFamily:"Tajawal"}}>
+              ✕
+            </button>
+          </div>
+        </div>
+      ):(
+        <div
+          ref={boxRef}
+          tabIndex={0}
+          onClick={()=>setActive(true)}
+          onBlur={()=>setActive(false)}
+          onDragOver={onDragOver}
+          onDrop={onDrop}
+          style={{
+            border:`2px dashed ${active?"#2563eb":"#e2e8f0"}`,
+            borderRadius:10,
+            background:active?"#eff6ff":"#fafafa",
+            padding:"14px 16px",
+            display:"flex",
+            alignItems:"center",
+            gap:12,
+            cursor:"pointer",
+            transition:"all .2s",
+            outline:"none",
+            boxShadow:active?"0 0 0 3px rgba(37,99,235,.15)":"none"
+          }}>
+          <div style={{
+            width:40,height:40,borderRadius:9,
+            background:active?"#2563eb":"#e2e8f0",
+            display:"flex",alignItems:"center",justifyContent:"center",
+            fontSize:20,flexShrink:0,transition:"all .2s"
+          }}>📋</div>
+          <div>
+            <p style={{fontSize:13,fontWeight:700,color:active?"#1d4ed8":"#64748b",marginBottom:2}}>
+              {active?"✅ جاهز — الصق الصورة الآن (Ctrl+V)":"انقر ثم الصق صورة أو أفلتها هنا"}
+            </p>
+            <p style={{fontSize:11,color:"#94a3b8"}}>اقص صورة من PDF ← Ctrl+V ← تظهر هنا</p>
+          </div>
+          {active&&<div style={{marginRight:"auto",width:10,height:10,borderRadius:"50%",background:"#2563eb",animation:"pulse .8s infinite"}}/>}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ─── AI IMPORT SCREEN ─── */
 function AIImportScreen({apiKey,onSaveExam,onBack}){
   const [step,setStep]=useState("upload");
@@ -2071,6 +2173,15 @@ ${text.slice(0,6000)}
                   </div>
                   <input className="inp" value={q.feedback} onChange={e=>updateQ(sIdx,qIdx,"feedback",e.target.value)}
                     style={{fontSize:13,padding:"7px 12px"}} placeholder="💡 تغذية راجعة (اختياري)"/>
+
+                  {/* Per-question image paste box */}
+                  <div style={{marginTop:10}}>
+                    <p style={{fontSize:11,fontWeight:700,color:"#475569",marginBottom:4}}>🖼️ صورة توضيحية للسؤال (اختياري)</p>
+                    <PasteImageBox
+                      image={q.image||null}
+                      onChange={img=>updateQ(sIdx,qIdx,"image",img)}
+                    />
+                  </div>
                 </div>
               ))}
               <button onClick={()=>addQuestion(sIdx)} className="btn" style={{width:"100%",background:"#f5f3ff",color:"#7c3aed",border:"2px dashed #c4b5fd",borderRadius:10,padding:"10px",fontSize:13,fontWeight:700}}>
