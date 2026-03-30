@@ -1665,40 +1665,45 @@ function AIImportScreen({apiKey,onSaveExam,onBack}){
   const [saveStatus,setSaveStatus]=useState(""); // "" | "saving" | "ok" | "error"
 
   const saveAsExam=async()=>{
-    // نبني الأسئلة من المعايير مع حذف الصور الكبيرة من الحفظ الأولي
+    // بناء الأسئلة بأقل قدر من البيانات
     const allQuestions=standards.flatMap(s=>s.questions.map(q=>({
       id:q.id,
-      text:q.text||"",
-      options:q.options.map(o=>String(o||"")),
+      text:(q.text||"").substring(0,500),
+      options:(q.options||["","","",""]).map(o=>String(o||"").substring(0,200)),
       correct:Number(q.correct)||0,
       grade:Number(q.grade)||2,
-      feedback:q.feedback||"",
-      image:null, // الصور تُضاف لاحقاً من المحرر
-      standardName:s.name
+      feedback:(q.feedback||"").substring(0,300),
+      image:null,
+      sn:s.name.substring(0,100) // standardName مختصر
     })));
+
     const exam={
       id:uid(),
-      title:examTitle||"اختبار مستورد",
+      title:(examTitle||"اختبار مستورد").substring(0,200),
       totalStudents:140,
       createdAt:new Date().toISOString(),
       timerMinutes:Number(timerMins)||0,
       isPractice:!!isPractice,
       publishAt:null,
       isStandardsBased:true,
-      // نحفظ المعايير كملخص فقط (بدون الأسئلة) لتجنب التكرار
-      standardNames:standards.map(s=>s.name),
-      subjects:[{
-        name:"الأسئلة",
-        questions:allQuestions
-      }]
+      standardNames:standards.map(s=>s.name.substring(0,100)),
+      subjects:[{name:"الأسئلة",questions:allQuestions}]
     };
+
+    // فحص الحجم
+    const size=new Blob([JSON.stringify(exam)]).size;
+    if(size>900000){
+      setError(`حجم الاختبار كبير جداً (${Math.round(size/1024)}KB). قلّل عدد الأسئلة أو طوّل النصوص.`);
+      return;
+    }
+
     setSaveStatus("saving");
     try{
-      await onSaveExam(exam);
+      await db.collection("exams").doc(exam.id).set(exam);
       setSaveStatus("ok");
     }catch(e){
       setSaveStatus("error");
-      setError("خطأ في الحفظ: "+e.message);
+      setError("خطأ في الحفظ: "+(e.message||e.code||"تأكد من اتصال الإنترنت"));
     }
   };
 
