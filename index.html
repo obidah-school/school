@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ملف الأداء الوظيفي — مدرسة عبيدة بن الحارث المتوسطة</title>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-storage-compat.js"></script>
 <style>
 .ministry-bar{background:#fff;border-bottom:2px solid #e0e0e0;padding:6px 20px;display:flex;align-items:center;justify-content:center;gap:18px;direction:rtl}
 .ministry-bar img{height:44px}
@@ -328,6 +332,37 @@ tr:hover td{background:var(--green-pale)}
   </div>
 </header>
 
+
+<!-- ══════════════════ FIREBASE SETUP ══════════════════ -->
+<div id="fbSetupOverlay" style="display:none;position:fixed;inset:0;background:linear-gradient(135deg,#006C35,#00471b);z-index:99999;align-items:center;justify-content:center;font-family:'Cairo',sans-serif;direction:rtl">
+  <div style="background:#fff;border-radius:20px;padding:32px;width:min(480px,94vw);box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:40px">☁️</div>
+      <h2 style="color:#006C35;margin:8px 0 4px;font-size:18px">إعداد قاعدة البيانات السحابية</h2>
+      <p style="color:#666;font-size:12px;margin:0">أدخل بيانات Firebase لحفظ بيانات جميع المعلمين</p>
+    </div>
+    <div style="background:#e8f5e9;border-radius:10px;padding:12px;font-size:11.5px;color:#2e7d32;margin-bottom:16px;line-height:1.8">
+      <strong>كيف تحصل على هذه البيانات؟</strong><br>
+      1. افتح <strong>console.firebase.google.com</strong><br>
+      2. أنشئ مشروعاً جديداً → اضغط "Add app" → Web<br>
+      3. انسخ الـ config وضعه أدناه
+    </div>
+    <div style="margin-bottom:10px">
+      <label style="font-size:12px;font-weight:700;color:#333;display:block;margin-bottom:5px">🔑 الصق كود Firebase Config هنا:</label>
+      <textarea id="fbConfigInput" style="width:100%;height:160px;border:1.5px solid #c8e6c9;border-radius:8px;padding:10px;font-family:monospace;font-size:11px;resize:vertical;direction:ltr" placeholder='const firebaseConfig = {
+  apiKey: "...",
+  authDomain: "...",
+  projectId: "...",
+  storageBucket: "...",
+  messagingSenderId: "...",
+  appId: "..."
+};'></textarea>
+    </div>
+    <div id="fbSetupErr" style="display:none;color:#c62828;font-size:12px;margin-bottom:10px">⚠️ البيانات غير صحيحة، تأكد من نسخ الكود كاملاً</div>
+    <button onclick="saveFbConfig()" style="width:100%;padding:12px;background:linear-gradient(135deg,#006C35,#00897b);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Cairo',sans-serif">✅ حفظ والاتصال</button>
+  </div>
+</div>
+
 <!-- ══════════════════ LOGIN PAGE ══════════════════ -->
 <div class="page active" id="pgLogin">
   <div class="login-wrap">
@@ -347,8 +382,8 @@ tr:hover td{background:var(--green-pale)}
         <!-- LOGIN -->
         <div id="frmLogin">
           <div class="fg">
-            <label class="flbl">📧 البريد الإلكتروني</label>
-            <input class="finp" id="lEmail" type="text" placeholder="أدخل البريد الإلكتروني">
+            <label class="flbl">🪪 رقم الهوية / البريد الإلكتروني</label>
+            <input class="finp" id="lEmail" type="text" placeholder="رقم الهوية (للمدير) أو البريد الإلكتروني (للمعلم)">
           </div>
           <div class="fg">
             <label class="flbl">🔒 كلمة المرور</label>
@@ -357,8 +392,7 @@ tr:hover td{background:var(--green-pale)}
           </div>
           <button class="btn-main" onclick="doLogin()">🔐 دخول</button>
           <div class="demo-hint">
-            للدخول كمسؤول:<br>
-            <strong>admin@ubaidah.sa</strong> &nbsp;/&nbsp; <strong>admin123</strong>
+            🔑 المسؤول: رقم الهوية &nbsp;/&nbsp; كلمة المرور من الإعدادات
           </div>
         </div>
         <!-- REGISTER -->
@@ -502,7 +536,10 @@ tr:hover td{background:var(--green-pale)}
   <div class="admin-wrap">
     <div class="sec-ttl" style="justify-content:space-between;flex-wrap:wrap;gap:10px">
       <span>لوحة المتابعة — مدرسة عبيدة بن الحارث المتوسطة</span>
-      <button onclick="loadAdmin()" style="padding:6px 14px;background:var(--green-soft);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:12px;color:var(--green-dark);font-weight:600">🔄 تحديث القائمة</button>
+      <div style="display:flex;gap:8px">
+        <button onclick="openAdminSettings()" style="padding:6px 14px;background:#e3f2fd;border:1px solid #90caf9;border-radius:20px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:12px;color:#1565c0;font-weight:600">⚙️ إعدادات الدخول</button>
+        <button onclick="loadAdmin()" style="padding:6px 14px;background:var(--green-soft);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-family:'Cairo',sans-serif;font-size:12px;color:var(--green-dark);font-weight:600">🔄 تحديث القائمة</button>
+      </div>
     </div>
     <div class="at-card">
       <div class="at-hdr teacher-th" style="display:flex;align-items:center;justify-content:space-between">
@@ -591,9 +628,40 @@ tr:hover td{background:var(--green-pale)}
 <input type="file" class="hfi" id="fi3" accept="image/*" onchange="handleUpload(3,this)">
 <input type="file" class="hfi" id="fi4" accept="image/*" onchange="handleUpload(4,this)">
 
+<!-- ══════════════════ ADMIN SETTINGS MODAL ══════════════════ -->
+<div id="adminSettingsOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:none;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:18px;padding:28px;width:min(420px,92vw);font-family:'Cairo',sans-serif;direction:rtl;box-shadow:0 20px 60px rgba(0,0,0,.2)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <h3 style="margin:0;font-size:16px;color:#1b5e20">⚙️ إعدادات دخول المدير</h3>
+      <button onclick="closeAdminSettings()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#888">✕</button>
+    </div>
+    <div style="background:#e3f2fd;border-radius:10px;padding:10px 14px;font-size:12px;color:#1565c0;margin-bottom:16px">
+      🪪 يستخدم المدير <strong>رقم هويته الوطنية</strong> كاسم مستخدم عند تسجيل الدخول
+    </div>
+    <div style="margin-bottom:14px">
+      <label style="font-size:12px;font-weight:700;color:#333;display:block;margin-bottom:6px">👤 اسم المدير</label>
+      <input id="cfg_name" class="finp" type="text" placeholder="اسم المدير الكامل">
+    </div>
+    <div style="margin-bottom:14px">
+      <label style="font-size:12px;font-weight:700;color:#333;display:block;margin-bottom:6px">🪪 رقم الهوية الوطنية (اسم المستخدم)</label>
+      <input id="cfg_id" class="finp" type="text" placeholder="رقم الهوية" maxlength="10">
+    </div>
+    <div style="margin-bottom:6px">
+      <label style="font-size:12px;font-weight:700;color:#333;display:block;margin-bottom:6px">🔒 كلمة المرور الجديدة</label>
+      <input id="cfg_pass" class="finp" type="password" placeholder="أدخل كلمة المرور الجديدة">
+    </div>
+    <div style="margin-bottom:18px">
+      <label style="font-size:12px;font-weight:700;color:#333;display:block;margin-bottom:6px">🔒 تأكيد كلمة المرور</label>
+      <input id="cfg_pass2" class="finp" type="password" placeholder="أعد كتابة كلمة المرور">
+      <div id="cfg_err" style="display:none;color:#c62828;font-size:12px;margin-top:4px">⚠️ كلمتا المرور غير متطابقتان أو البيانات ناقصة</div>
+    </div>
+    <button onclick="saveAdminSettings()" style="width:100%;padding:11px;background:linear-gradient(135deg,#006C35,#00897b);color:#fff;border:none;border-radius:10px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer">💾 حفظ الإعدادات</button>
+  </div>
+</div>
+
 <div class="toast" id="toast">تم الحفظ ✓</div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ════════════════════════════════════════════════
    DATA — TEACHER CRITERIA (11 معياراً — من نموذج وزارة التعليم)
    كل معيار يحتوي: icon, color, weight, description (التفسير), levels (مستويات 1-5)
@@ -908,10 +976,165 @@ let TMP_IMGS = ['','','','',''];
 /* ════════════════════════════════════════════════
    STORAGE
 ════════════════════════════════════════════════ */
-const getUsers = ()=>{ try{return JSON.parse(localStorage.getItem('ub_users')||'{}')}catch{return{}} };
-const saveUsers = u=>localStorage.setItem('ub_users',JSON.stringify(u));
-const getData = email=>{ try{return JSON.parse(localStorage.getItem('ub_data_'+email)||'{}')}catch{return{}} };
-const saveData = (email,d)=>localStorage.setItem('ub_data_'+email,JSON.stringify(d));
+/* ════════════════════════════════════════════════
+   FIREBASE INIT & STORAGE LAYER
+════════════════════════════════════════════════ */
+let db, fstorage, fbReady = false;
+
+function getFbConfig(){
+  try{ return JSON.parse(localStorage.getItem('ub_fb_config')||'null'); }catch{ return null; }
+}
+
+function saveFbConfig(){
+  const raw = document.getElementById('fbConfigInput').value.trim();
+  // Extract the object from the pasted code
+  try{
+    const match = raw.match(/\{[\s\S]*\}/);
+    if(!match) throw new Error('no object');
+    const cfg = eval('('+match[0]+')');
+    if(!cfg.apiKey||!cfg.projectId) throw new Error('missing keys');
+    localStorage.setItem('ub_fb_config', JSON.stringify(cfg));
+    document.getElementById('fbSetupErr').style.display='none';
+    initFirebase(cfg).then(()=>{
+      document.getElementById('fbSetupOverlay').style.display='none';
+      showToast('✅ تم الاتصال بقاعدة البيانات');
+    }).catch(()=>{
+      document.getElementById('fbSetupErr').style.display='block';
+    });
+  }catch(e){
+    document.getElementById('fbSetupErr').style.display='block';
+  }
+}
+
+async function initFirebase(cfg){
+  try{
+    if(!firebase.apps.length) firebase.initializeApp(cfg);
+    db = firebase.firestore();
+    fstorage = firebase.storage();
+    await db.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+    fbReady = true;
+    console.log('Firebase connected ✓');
+  }catch(e){
+    console.error('Firebase init error:', e);
+    fbReady = false;
+    throw e;
+  }
+}
+
+// ── Key helpers ──
+const fbKey = email => email.replace(/[.\[\]#$/]/g,'_');
+
+// ── Users ──
+async function getUsers(){
+  if(!fbReady) return JSON.parse(localStorage.getItem('ub_users')||'{}');
+  const snap = await db.collection('users').get();
+  const users = {};
+  snap.forEach(d => users[d.id.replace(/_/g,'.')] = d.data());
+  return users;
+}
+async function saveUser(email, data){
+  if(fbReady) await db.collection('users').doc(fbKey(email)).set(data, {merge:true});
+  const cache = JSON.parse(localStorage.getItem('ub_users')||'{}');
+  cache[email] = data;
+  localStorage.setItem('ub_users', JSON.stringify(cache));
+}
+async function getUser(email){
+  if(fbReady){
+    const doc = await db.collection('users').doc(fbKey(email)).get();
+    return doc.exists ? doc.data() : null;
+  }
+  const cache = JSON.parse(localStorage.getItem('ub_users')||'{}');
+  return cache[email] || null;
+}
+
+// ── Evaluations ──
+async function getData(email){
+  // Always check localStorage first (fast cache)
+  const local = JSON.parse(localStorage.getItem('ub_data_'+email)||'{}');
+  if(!fbReady) return local;
+
+  try{
+    // Get main data (ratings, notes) from Firestore
+    const doc = await db.collection('evaluations').doc(fbKey(email)).get();
+    const remote = doc.exists ? doc.data() : {};
+
+    // Get images from separate per-criterion documents
+    const imgSnap = await db.collection('images').doc(fbKey(email)).get();
+    const remoteImgs = imgSnap.exists ? imgSnap.data() : {};
+
+    // Merge: remote data + remote images
+    const merged = JSON.parse(JSON.stringify(remote));
+    ['teacher','director'].forEach(role=>{
+      if(!merged[role]) merged[role]={evaluations:{}};
+      if(!merged[role].evaluations) merged[role].evaluations={};
+      Object.keys(merged[role].evaluations||{}).forEach(cid=>{
+        if(remoteImgs[role+'_'+cid]){
+          merged[role].evaluations[cid].images = remoteImgs[role+'_'+cid];
+        }
+      });
+      // Also check local for any criteria not yet synced
+      if(local[role]&&local[role].evaluations){
+        Object.keys(local[role].evaluations).forEach(cid=>{
+          if(!merged[role].evaluations[cid]) merged[role].evaluations[cid]={};
+          if(!remoteImgs[role+'_'+cid] && local[role].evaluations[cid].images){
+            merged[role].evaluations[cid].images = local[role].evaluations[cid].images;
+          }
+        });
+      }
+    });
+
+    // Update local cache
+    localStorage.setItem('ub_data_'+email, JSON.stringify(merged));
+    return merged;
+  }catch(e){
+    console.warn('Firestore read failed, using local:', e);
+    return local;
+  }
+}
+
+async function saveData(email, data){
+  // Always save to localStorage
+  localStorage.setItem('ub_data_'+email, JSON.stringify(data));
+  if(!fbReady) return;
+
+  try{
+    // Save main data (ratings, notes) WITHOUT images
+    const clean = JSON.parse(JSON.stringify(data));
+    const imgMap = {};
+
+    // Extract images into separate map
+    ['teacher','director'].forEach(role=>{
+      if(!clean[role]||!clean[role].evaluations) return;
+      Object.keys(clean[role].evaluations).forEach(cid=>{
+        const ev = clean[role].evaluations[cid];
+        if(ev.images && ev.images.some(img=>img&&img.startsWith('data:'))){
+          imgMap[role+'_'+cid] = ev.images;
+        }
+        // Remove images from main doc to keep it small
+        delete ev.images;
+      });
+    });
+
+    // Save main doc (no images — small and fast)
+    await db.collection('evaluations').doc(fbKey(email)).set(clean, {merge:true});
+
+    // Save images in separate doc (one doc per teacher, keyed by role_critId)
+    if(Object.keys(imgMap).length > 0){
+      await db.collection('images').doc(fbKey(email)).set(imgMap, {merge:true});
+    }
+  }catch(e){
+    console.warn('Firestore save failed:', e);
+  }
+}
+
+// ── Admin config (keep in localStorage only) ──
+const getAdminConfig = ()=>{
+  try{
+    const cfg=JSON.parse(localStorage.getItem('ub_admin_cfg')||'{}');
+    return {nationalId:cfg.nationalId||'1234567890', password:cfg.password||'admin123', name:cfg.name||'مدير المدرسة'};
+  }catch{ return {nationalId:'1234567890',password:'admin123',name:'مدير المدرسة'}; }
+};
+const saveAdminConfig = cfg => localStorage.setItem('ub_admin_cfg', JSON.stringify(cfg));
 
 /* ════════════════════════════════════════════════
    AUTH
@@ -928,35 +1151,42 @@ function switchLTab(t){
   document.getElementById('frmLogin').style.display = t==='login'?'block':'none';
   document.getElementById('frmRegister').style.display = t==='register'?'block':'none';
 }
-function doLogin(){
-  const email = document.getElementById('lEmail').value.trim();
+async function doLogin(){
+  const input = document.getElementById('lEmail').value.trim();
   const pass  = document.getElementById('lPass').value;
   const errEl = document.getElementById('lErr');
-  if(email==='admin@ubaidah.sa' && pass==='admin123'){
-    CU={name:'المسؤول',email:'admin@ubaidah.sa',role:'admin',spec:'إدارة',level:'—'};
+  errEl.style.display='none';
+
+  // Admin login
+  const adminCfg = getAdminConfig();
+  if(input === adminCfg.nationalId && pass === adminCfg.password){
+    CU={name:adminCfg.name||'مدير المدرسة', email:'admin', role:'admin', spec:'إدارة', level:'—'};
     updateHeader(); showAdminPage(); return;
   }
-  const users = getUsers();
-  if(!users[email]||users[email].password!==pass){ errEl.style.display='block'; return; }
-  errEl.style.display='none';
-  CU={...users[email],email};
-  updateHeader(); showPage('pgHome');
-  document.getElementById('homeGreet').textContent='مرحباً، '+CU.name+' 👋';
-  renderHomeCards();
+  // Teacher login via Firebase
+  try{
+    const u = await getUser(input);
+    if(!u || u.password !== pass){ errEl.style.display='block'; return; }
+    CU={...u, email:input};
+    updateHeader(); showPage('pgHome');
+    document.getElementById('homeGreet').textContent='مرحباً، '+CU.name+' 👋';
+    renderHomeCards();
+  }catch(e){
+    errEl.textContent='خطأ في الاتصال، حاول مجدداً';
+    errEl.style.display='block';
+  }
 }
-function doRegister(){
+
+async function doRegister(){
   const name=document.getElementById('rName').value.trim();
   const email=document.getElementById('rEmail').value.trim();
   const pass=document.getElementById('rPass').value;
   const errEl=document.getElementById('rErr');
 
-  // Collect specs (checkboxes + other)
   const specChecked=[...document.querySelectorAll('#specGrid input[type=checkbox]:checked')].map(c=>c.value);
   const specOther=document.getElementById('rSpecOther').value.trim();
   if(specOther) specChecked.push(specOther);
   const spec=specChecked.join('، ');
-
-  // Collect levels (checkboxes)
   const levelChecked=[...document.querySelectorAll('#lvl1,#lvl2,#lvl3').values()].filter(c=>c.checked).map(c=>c.value);
   const level=levelChecked.join(' / ');
 
@@ -964,19 +1194,15 @@ function doRegister(){
     errEl.textContent='يرجى ملء الاسم والبريد وكلمة المرور (6 أحرف على الأقل)';
     errEl.style.display='block'; return;
   }
-  if(regRole==='teacher' && !spec){
-    errEl.textContent='يرجى اختيار تخصص واحد على الأقل';
-    errEl.style.display='block'; return;
-  }
-  if(regRole==='teacher' && !level){
-    errEl.textContent='يرجى اختيار صف دراسي واحد على الأقل';
-    errEl.style.display='block'; return;
-  }
+  if(regRole==='teacher' && !spec){ errEl.textContent='يرجى اختيار تخصص واحد على الأقل'; errEl.style.display='block'; return; }
+  if(regRole==='teacher' && !level){ errEl.textContent='يرجى اختيار صف دراسي واحد على الأقل'; errEl.style.display='block'; return; }
 
-  const users=getUsers();
-  if(users[email]){ errEl.textContent='البريد الإلكتروني مسجل مسبقاً'; errEl.style.display='block'; return; }
-  users[email]={name, spec:spec||'—', level:level||'—', password:pass, role:regRole, joinDate:new Date().toLocaleDateString('ar-SA')};
-  saveUsers(users);
+  // Check if user exists
+  const existing = await getUser(email);
+  if(existing){ errEl.textContent='البريد الإلكتروني مسجل مسبقاً'; errEl.style.display='block'; return; }
+
+  const userData = {name, spec:spec||'—', level:level||'—', password:pass, role:regRole, joinDate:new Date().toLocaleDateString('ar-SA')};
+  await saveUser(email, userData);
   showToast('تم إنشاء الحساب بنجاح 🎉');
   setTimeout(()=>{
     document.getElementById('lEmail').value=email;
@@ -1070,15 +1296,14 @@ function openFile(type){
 /* ════════════════════════════════════════════════
    DASHBOARD
 ════════════════════════════════════════════════ */
-function renderDash(){
+async function renderDash(){
   if(!CU||!FILE) return;
   const isT=FILE==='teacher';
   const criteria=isT?TEACHER_CRITERIA:DIRECTOR_CRITERIA;
-  const data=getData(CU.email);
+  const data=await getData(CU.email);
   const key=isT?'teacher':'director';
   const evals=(data[key]&&data[key].evaluations)||{};
 
-  // For teacher: "done" means has images OR has director rating
   const done=criteria.filter(c=>{
     const ev=evals[c.id]||{};
     return (ev.images||[]).filter(Boolean).length>0 || ev.rating>0;
@@ -1092,7 +1317,6 @@ function renderDash(){
   document.getElementById('stPend').textContent=criteria.length-(isT?rated:done);
   document.getElementById('stImgs').textContent=totalImgs;
 
-  // Update stat labels for teacher
   if(isT){
     document.querySelector('#sc2 .slbl').textContent='معايير مُقيَّمة';
     document.querySelector('#sc3 .slbl').textContent='بانتظار التقييم';
@@ -1240,7 +1464,7 @@ let EVAL_TARGET = null;
 /* ════════════════════════════════════════════════
    MODAL — open (self upload mode for teacher/director)
 ════════════════════════════════════════════════ */
-function openCrit(id){
+async function openCrit(id){
   EVAL_TARGET = null;
   const isT=FILE==='teacher';
   const criteria=isT?TEACHER_CRITERIA:DIRECTOR_CRITERIA;
@@ -1248,7 +1472,7 @@ function openCrit(id){
   if(!c) return;
   CRIT_ID=id;
 
-  const data=getData(CU.email);
+  const data=await getData(CU.email);
   const key=isT?'teacher':'director';
   const ev=((data[key]&&data[key].evaluations)||{})[id]||{};
 
@@ -1262,18 +1486,14 @@ function openCrit(id){
   document.body.style.overflow='hidden';
 }
 
-/* ════════════════════════════════════════════════
-   MODAL — open (director evaluating a teacher)
-════════════════════════════════════════════════ */
-function evalTeacherCrit(teacherEmail, critId){
+async function evalTeacherCrit(teacherEmail, critId){
   EVAL_TARGET = teacherEmail;
   CRIT_ID = critId;
 
   const c=TEACHER_CRITERIA.find(x=>x.id===critId);
   if(!c) return;
 
-  // Load teacher's data (read-only images)
-  const tData=getData(teacherEmail);
+  const tData=await getData(teacherEmail);
   const tEvals=(tData.teacher&&tData.teacher.evaluations)||{};
   const tEv=tEvals[critId]||{};
 
@@ -1283,8 +1503,8 @@ function evalTeacherCrit(teacherEmail, critId){
   const imgCount=TMP_IMGS.filter(Boolean).length;
   TMP_RATING=tEv.rating||calcRating(imgCount);
 
-  const users=getUsers();
-  const tName=(users[teacherEmail]&&users[teacherEmail].name)||teacherEmail;
+  const u=await getUser(teacherEmail);
+  const tName=(u&&u.name)||teacherEmail;
 
   _buildModal(c, true, true, tName, imgCount);
   document.getElementById('noteArea').value=tEv.directorNote||'';
@@ -1292,9 +1512,48 @@ function evalTeacherCrit(teacherEmail, critId){
   document.body.style.overflow='hidden';
 }
 
-/* ════════════════════════════════════════════════
-   MODAL — shared builder
-════════════════════════════════════════════════ */
+async function saveCrit(){
+  if(!CU||!CRIT_ID||(!FILE&&!EVAL_TARGET)) return;
+
+  if(EVAL_TARGET){
+    const tData=await getData(EVAL_TARGET);
+    if(!tData.teacher) tData.teacher={evaluations:{}};
+    if(!tData.teacher.evaluations) tData.teacher.evaluations={};
+    const prev=tData.teacher.evaluations[CRIT_ID]||{};
+    tData.teacher.evaluations[CRIT_ID]={
+      ...prev,
+      rating: TMP_RATING,
+      directorNote: document.getElementById('noteArea').value,
+      ratedBy: CU.email,
+      ratedAt: new Date().toISOString()
+    };
+    await saveData(EVAL_TARGET, tData);
+    closeModal();
+    loadAdmin();
+    showToast('تم حفظ التقييم ✓');
+    return;
+  }
+
+  const isT=FILE==='teacher';
+  const key=isT?'teacher':'director';
+  const data=await getData(CU.email);
+  if(!data[key]) data[key]={evaluations:{}};
+  if(!data[key].evaluations) data[key].evaluations={};
+
+  const isTeacherUser=(CU.role==='teacher');
+  const existingRating=((data[key].evaluations[CRIT_ID])||{}).rating||0;
+
+  data[key].evaluations[CRIT_ID]={
+    rating: isTeacherUser ? existingRating : TMP_RATING,
+    images:[...TMP_IMGS],
+    notes: document.getElementById('noteArea').value,
+    updatedAt: new Date().toISOString()
+  };
+  await saveData(CU.email, data);
+  closeModal();
+  renderDash();
+  showToast('تم الحفظ بنجاح ✓');
+}
 function _buildModal(c, isT, isDirEval, tName, imgCount){
   // Header style
   const mhdr=document.getElementById('mhdr');
@@ -1502,15 +1761,19 @@ function saveCrit(){
 /* ════════════════════════════════════════════════
    ADMIN
 ════════════════════════════════════════════════ */
-function loadAdmin(){
-  const users=getUsers();
+async function loadAdmin(){
+  const tbody=document.getElementById('tBody');
+  if(tbody) tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:24px;color:#888">⏳ جاري تحميل البيانات...</td></tr>`;
+  const users=await getUsers();
   const teachers=Object.keys(users).filter(e=>users[e].role==='teacher'||users[e].role==='director');
-  document.getElementById('tCount').textContent=teachers.length+' معلم';
-  fillTeachersTable(teachers, users);
+  const el=document.getElementById('tCount');
+  if(el) el.textContent=teachers.length+' معلم';
+  await fillTeachersTable(teachers, users);
 }
 
-function fillTeachersTable(emails, users){
+async function fillTeachersTable(emails, users){
   const tbody=document.getElementById('tBody');
+  if(!tbody) return;
   tbody.innerHTML='';
   if(emails.length===0){
     tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--text-light);font-size:13px">
@@ -1518,39 +1781,31 @@ function fillTeachersTable(emails, users){
     </td></tr>`;
     return;
   }
-  emails.forEach((email,idx)=>{
+  for(let idx=0; idx<emails.length; idx++){
+    const email=emails[idx];
     const u=users[email];
-    const data=getData(email);
+    const data=await getData(email);
     const evals=(data.teacher&&data.teacher.evaluations)||{};
-    const totalImgs=TEACHER_CRITERIA.reduce((s,c)=>s+(evals[c.id]?(evals[c.id].images||[]).filter(Boolean).length:0),0);
+    const totalImgs=TEACHER_CRITERIA.reduce((s,c)=>s+(evals[c.id]?(evals[c.id].images||[]).filter(img=>img&&img!=='__local__').length:0),0);
     const rated=TEACHER_CRITERIA.filter(c=>evals[c.id]&&evals[c.id].rating>0).length;
     const pct=Math.round((rated/TEACHER_CRITERIA.length)*100);
     tbody.innerHTML+=`<tr>
       <td style="font-weight:700;color:var(--text-light)">${idx+1}</td>
-      <td>
-        <strong style="color:var(--text-dark)">${u.name}</strong><br>
-        <small style="color:var(--text-light)">${email}</small>
-      </td>
+      <td><strong style="color:var(--text-dark)">${u.name}</strong><br><small style="color:var(--text-light)">${email}</small></td>
       <td>${u.spec||'—'}</td>
       <td>${u.level||'—'}</td>
-      <td>
-        <span style="background:var(--blue-soft);color:var(--blue-main);padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700">
-          🖼️ ${totalImgs} صورة
-        </span>
-      </td>
+      <td><span style="background:var(--blue-soft);color:var(--blue-main);padding:3px 10px;border-radius:10px;font-size:12px;font-weight:700">🖼️ ${totalImgs} صورة</span></td>
       <td>${rated}/${TEACHER_CRITERIA.length}</td>
-      <td>
-        <div style="display:flex;align-items:center;gap:7px">
-          <div class="pbw"><div class="pbf blue-f" style="width:${pct}%"></div></div>
-          <span style="font-size:12px;font-weight:700;color:var(--blue-main)">${pct}%</span>
-        </div>
-      </td>
+      <td><div style="display:flex;align-items:center;gap:7px">
+        <div class="pbw"><div class="pbf blue-f" style="width:${pct}%"></div></div>
+        <span style="font-size:12px;font-weight:700;color:var(--blue-main)">${pct}%</span>
+      </div></td>
       <td style="display:flex;flex-direction:column;gap:4px">
         <button class="vbtn" onclick="viewReport('${email}','teacher')">📄 تقرير</button>
         <button class="vbtn" style="background:var(--gold-light);color:var(--green-dark);border-color:var(--gold)" onclick="openTeacherEval('${email}')">⭐ تقييم</button>
       </td>
     </tr>`;
-  });
+  }
 }
 
 /* ════════════════════════════════════════════════
@@ -1903,9 +2158,44 @@ body{font-family:'Cairo',sans-serif;direction:rtl;color:#222;background:#f0f4f8;
 </body></html>`);
 }
 
-/* ════════════════════════════════════════════════
-   TOAST
-════════════════════════════════════════════════ */
+function openAdminSettings(){
+  const cfg = getAdminConfig();
+  document.getElementById('cfg_name').value = cfg.name || '';
+  document.getElementById('cfg_id').value   = cfg.nationalId || '';
+  document.getElementById('cfg_pass').value  = '';
+  document.getElementById('cfg_pass2').value = '';
+  document.getElementById('cfg_err').style.display='none';
+  const ov = document.getElementById('adminSettingsOverlay');
+  ov.style.display='flex';
+}
+
+function closeAdminSettings(){
+  document.getElementById('adminSettingsOverlay').style.display='none';
+}
+
+function saveAdminSettings(){
+  const name  = document.getElementById('cfg_name').value.trim();
+  const nid   = document.getElementById('cfg_id').value.trim();
+  const pass  = document.getElementById('cfg_pass').value;
+  const pass2 = document.getElementById('cfg_pass2').value;
+  const errEl = document.getElementById('cfg_err');
+
+  if(!name || !nid || !pass || pass !== pass2){
+    errEl.style.display='block'; return;
+  }
+  errEl.style.display='none';
+  const cfg = { name, nationalId: nid, password: pass };
+  saveAdminConfig(cfg);
+  // Update current user name in header
+  if(CU && CU.role==='admin'){ CU.name = name; updateHeader(); }
+  closeAdminSettings();
+  showToast('✅ تم حفظ إعدادات الدخول بنجاح');
+}
+
+// Close settings overlay on background click
+document.getElementById('adminSettingsOverlay').addEventListener('click', function(e){
+  if(e.target === this) closeAdminSettings();
+});
 function showToast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg; t.classList.add('show');
@@ -1923,10 +2213,26 @@ window.addEventListener('load',()=>{
       CU=JSON.parse(sess); updateHeader();
       if(CU.role==='admin'){ showAdminPage(); }
       else{ showPage('pgHome'); document.getElementById('homeGreet').textContent='مرحباً، '+CU.name+' 👋'; renderHomeCards(); }
-    }catch{}
+    }catch(e){ sessionStorage.removeItem('ub_sess'); }
   }
 });
 window.addEventListener('beforeunload',()=>{ if(CU) sessionStorage.setItem('ub_sess',JSON.stringify(CU)); });
+
+/* ════ FIREBASE AUTO-INIT ON LOAD ════ */
+window.addEventListener('load', async ()=>{
+  const cfg = getFbConfig();
+  if(cfg){
+    try{
+      await initFirebase(cfg);
+    }catch(e){
+      console.warn('Firebase init failed, using localStorage fallback');
+    }
+  } else {
+    // Show Firebase setup on first run
+    const ov = document.getElementById('fbSetupOverlay');
+    if(ov) { ov.style.display='flex'; }
+  }
+});
 </script>
 </body>
 </html>
